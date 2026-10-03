@@ -1,0 +1,8 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^cd /Users/renaldowilliams/Documents/Development/Personal/pdf_explainer/backend && python3 -m pip install -r requirements\\.txt && pytest -q$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}

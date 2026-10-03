@@ -1,0 +1,63 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Backend: FastAPI (Gemma)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "uvicorn",
+      "cwd": "${workspaceFolder}/backend",
+      "args": ["app.main:app", "--reload", "--port", "8050"],
+      "env": {
+        "LLM_PROVIDER": "gemma",
+        "GEMMA_MODEL_ID": "google/gemma-3-4b-it",
+        "GEMMA_MAX_NEW_TOKENS": "750",
+        "SECRET_DB_HOST": "localhost",
+        "SECRET_DB_NAME": "postgres_pdf_explainer",
+        "SECRET_DB_USERNAME": "postgres",
+        "SECRET_DB_PASSWORD": "postgres",
+        "SECRET_DB_PORT": "5432"
+      },
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "Backend: FastAPI (Mock)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "uvicorn",
+      "cwd": "${workspaceFolder}/backend",
+      "args": ["app.main:app", "--reload", "--port", "8050"],
+      "env": {
+        "LLM_PROVIDER": "mock",
+        "SECRET_DB_HOST": "localhost",
+        "SECRET_DB_NAME": "postgres_pdf_explainer",
+        "SECRET_DB_USERNAME": "postgres",
+        "SECRET_DB_PASSWORD": "postgres",
+        "SECRET_DB_PORT": "5432"
+      },
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "Frontend: Next.js",
+      "type": "node-terminal",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/frontend",
+      "command": "npm run dev -- --port 3050",
+      "env": {
+        "NEXT_PUBLIC_API_BASE_URL": "http://localhost:8050"
+      }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Run Full Stack (Gemma)",
+      "configurations": ["Backend: FastAPI (Gemma)", "Frontend: Next.js"]
+    },
+    {
+      "name": "Run Full Stack (Mock)",
+      "configurations": ["Backend: FastAPI (Mock)", "Frontend: Next.js"]
+    }
+  ]
+}
