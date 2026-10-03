@@ -13,3 +13,5 @@ dist/
 coverage/
 *.tsbuildinfo
 backend/uploads/
+backend/backend/uploads/*.pdf
+evaluation/documents/*.pdf

@@ -14,10 +14,11 @@
         "GEMMA_MAX_NEW_TOKENS": "750",
         "SECRET_DB_HOST": "localhost",
         "SECRET_DB_NAME": "postgres_pdf_explainer",
-        "SECRET_DB_USERNAME": "postgres",
-        "SECRET_DB_PASSWORD": "postgres",
+        "SECRET_DB_USERNAME": "${env:SECRET_DB_USERNAME}",
+        "SECRET_DB_PASSWORD": "${env:SECRET_DB_PASSWORD}",
         "SECRET_DB_PORT": "5432"
       },
+      "envFile": "${workspaceFolder}/.env.local",
       "console": "integratedTerminal",
       "justMyCode": true
     },
@@ -32,10 +33,11 @@
         "LLM_PROVIDER": "mock",
         "SECRET_DB_HOST": "localhost",
         "SECRET_DB_NAME": "postgres_pdf_explainer",
-        "SECRET_DB_USERNAME": "postgres",
-        "SECRET_DB_PASSWORD": "postgres",
+        "SECRET_DB_USERNAME": "${env:SECRET_DB_USERNAME}",
+        "SECRET_DB_PASSWORD": "${env:SECRET_DB_PASSWORD}",
         "SECRET_DB_PORT": "5432"
       },
+      "envFile": "${workspaceFolder}/.env.local",
       "console": "integratedTerminal",
       "justMyCode": true
     },
