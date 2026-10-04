@@ -601,7 +601,7 @@ Still planned:
 
 - **E2 — Text vs text+image comparison**  
   Question: Does multimodal input improve visual/equation-heavy questions?
-  - Status: preregistered; see [`evaluation/specs/e2_multimodal_v1.yaml`](../evaluation/specs/e2_multimodal_v1.yaml) and [`evaluation/specs/e2_scoring_rubric_v1.yaml`](../evaluation/specs/e2_scoring_rubric_v1.yaml). Not run yet.
+  - Status: completed (2026-10-04) under frozen prereg specs; see [`e2_summary.json`](../evaluation/results/e2_20261004/e2_summary.json) and scoring artifacts in [evaluation/results/e2_20261004/](../evaluation/results/e2_20261004/).
 
 - **E3 — Prompt optimization**  
   Question: Which prompt structure best improves grounded pedagogy?
@@ -654,10 +654,11 @@ Still planned:
 - Basic regression checks across repeated prompts/questions
 - Persistent experiment tracking with resume/status/compare metadata
 - Importing previously captured E1 results into evaluation tables
+- Paired text-vs-multimodal rubric scoring over preregistered E2 case set
+- Visual challenge criterion comparison (`visual_grounding`, `visual_detail_accuracy`) across V1-V6
 
 ### Evaluations requiring future functionality
 
-- Visual grounding quality (needs text+image multimodal path wired)
 - TTS quality/intelligibility benchmarking (needs real Qwen3-TTS inference)
 - STT quality/latency benchmarking (needs real Whisper/STT endpoint)
 - RAG retrieval metrics (requires retrieval subsystem)

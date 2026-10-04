@@ -3,11 +3,10 @@
 Completed evidence:
 - E1a (Gemma 3 4B, text-only, Apple M1/MPS)
 - E1b (Gemma 3 4B, text-only, RunPod RTX 4090/CUDA)
+- E2 (Gemma 3 4B, paired text vs text+image, RunPod RTX 4090/CUDA)
 
 Planned:
-- E2 multimodal
 - broader evaluation
-- formal quality scoring
 - related-work review
 
 ---
@@ -58,7 +57,7 @@ Do not treat planned sections as completed results; use completed/verified entri
 
 **Completed Results (E1):** In matched text-only experiments with the same prompts/questions/cases and `max_new_tokens=750`, summed case latency decreased from 1428.64s (Apple M1/MPS) to 321.55s (RunPod RTX 4090/CUDA), a measured 4.44x speedup. Token outputs were similar (3872 vs 3886), and 750-token cap incidence was 3/10 in both.
 
-**Planned Results:** [RESULT PENDING — E2 multimodal evaluation]
+**E2 Results (completed):** Under frozen preregistered paired evaluation (`24/24` completed), multimodal condition increased latency versus text baseline (mean `+53.902s`, median `+51.504s`) with mixed quality deltas. Group A showed no change on factual/grounding/completeness and a small `+0.167` teaching-clarity delta; Group B showed mixed visual outcomes (`visual_grounding -0.167`, `visual_detail_accuracy 0.000` average deltas).
 
 **Systems Considerations:** Cold model startup on remote infrastructure can exceed HTTP proxy timeout windows, while warm CUDA inference is substantially faster in observed smoke testing.
 
@@ -199,7 +198,7 @@ Stable case identifiers:
 ### Intentionally varied factor
 - hardware/backend only (MPS vs CUDA)
 
-### E2 (planned, not yet run)
+### E2 (completed, frozen prereg execution)
 - Model: Gemma 3 4B
 - Input mode: text + rendered page image
 - Hardware: RunPod RTX 4090
@@ -219,7 +218,10 @@ Preregistered design summary:
 - Blind-scoring design with condition-masked response IDs
 - Frozen 0–4 rubric dimensions prior to generating E2 outputs
 
-E2 results remain pending and are not reported in this manuscript yet.
+Execution artifacts:
+- [`e2_summary.json`](../evaluation/results/e2_20261004/e2_summary.json)
+- [`scoring_metadata.json`](../evaluation/results/e2_20261004/scoring_metadata.json)
+- blind scoring artifacts in [evaluation/results/e2_20261004/](../evaluation/results/e2_20261004/)
 
 ---
 
@@ -267,7 +269,35 @@ These observations come from the current limited evaluation set and should not b
 
 ### 8.3 Multimodal Results
 
-**[RESULTS PENDING — E2]**
+E2 completed under frozen preregistered methodology:
+- Experiment keys: `e2a_gemma3_4b_text_control_runpod_cuda`, `e2b_gemma3_4b_multimodal_runpod_cuda`
+- Cases: 12 paired prompts (`24` total condition runs)
+- Completion: `24/24`
+
+Quality summary (paired multimodal - text deltas):
+- Group A average deltas:
+  - factual_correctness: `0.000`
+  - document_grounding: `0.000`
+  - completeness: `0.000`
+  - teaching_clarity: `+0.167`
+- Group B average deltas:
+  - factual_correctness: `-0.167`
+  - document_grounding: `0.000`
+  - completeness: `0.000`
+  - teaching_clarity: `0.000`
+  - visual_grounding: `-0.167`
+  - visual_detail_accuracy: `0.000`
+
+Performance summary:
+- Mean latency: text `187.028s` vs multimodal `240.930s` (delta `+53.902s`)
+- Median latency: text `178.138s` vs multimodal `229.642s` (delta `+51.504s`)
+- Mean input tokens: text `750.5` vs multimodal `1392.833` (delta `+642.333`)
+- Mean output tokens: text `531.25` vs multimodal `647.917` (delta `+116.667`)
+
+Interpretation boundary:
+- These are rubric-model-scored, paired benchmark observations.
+- No statistical significance claims are made.
+- Results are mixed; no blanket multimodal gain claim is warranted from this run alone.
 
 ---
 
@@ -310,18 +340,17 @@ Current limitations include:
 - no proprietary-model baseline comparison
 - no formal statistical significance analysis yet
 - pedagogical quality not yet comprehensively scored
-- no automated rubric/scoring pipeline completion yet
+- no human-rater study yet (current scoring used blinded LLM-based rubric scoring)
 
 ---
 
 ## 12. Future Work
 
 Planned next directions:
-- E2 multimodal evaluation (text + rendered page images)
 - broader technical-document domains beyond current PCA-focused set
 - additional model-size/open-model comparisons
 - quantitative human evaluation rubric and inter-rater process
-- automated evaluation and aggregation tooling
+- scorer cross-validation (human + model-based rubric agreement)
 - RAG retrieval augmentation for long-document coverage if needed
 - LoRA/fine-tuning experiments for grounding and pedagogy
 - TTS/STT conversational tutor loop evaluation

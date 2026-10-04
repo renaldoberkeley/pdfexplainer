@@ -1,0 +1,969 @@
+{
+  "restart_ts": "2026-10-04T12:08:53.146000-07:00",
+  "conditions_total": 24,
+  "completed_before_restart_count": 9,
+  "completed_after_restart_count": 15,
+  "completed_before_restart": [
+    [
+      1,
+      "A_N1",
+      "text"
+    ],
+    [
+      2,
+      "A_N1",
+      "text_image"
+    ],
+    [
+      3,
+      "A_N2",
+      "text_image"
+    ],
+    [
+      4,
+      "A_N2",
+      "text"
+    ],
+    [
+      5,
+      "A_N3",
+      "text"
+    ],
+    [
+      6,
+      "A_N3",
+      "text_image"
+    ],
+    [
+      7,
+      "A_L2",
+      "text_image"
+    ],
+    [
+      8,
+      "A_L2",
+      "text"
+    ],
+    [
+      9,
+      "A_L3",
+      "text"
+    ]
+  ],
+  "completed_after_restart": [
+    [
+      10,
+      "A_L3",
+      "text_image"
+    ],
+    [
+      11,
+      "A_H1",
+      "text_image"
+    ],
+    [
+      12,
+      "A_H1",
+      "text"
+    ],
+    [
+      13,
+      "V1",
+      "text"
+    ],
+    [
+      14,
+      "V1",
+      "text_image"
+    ],
+    [
+      15,
+      "V2",
+      "text_image"
+    ],
+    [
+      16,
+      "V2",
+      "text"
+    ],
+    [
+      17,
+      "V3",
+      "text"
+    ],
+    [
+      18,
+      "V3",
+      "text_image"
+    ],
+    [
+      19,
+      "V4",
+      "text_image"
+    ],
+    [
+      20,
+      "V4",
+      "text"
+    ],
+    [
+      21,
+      "V5",
+      "text"
+    ],
+    [
+      22,
+      "V5",
+      "text_image"
+    ],
+    [
+      23,
+      "V6",
+      "text_image"
+    ],
+    [
+      24,
+      "V6",
+      "text"
+    ]
+  ],
+  "last_pre_restart_completion": "2026-10-04T10:09:10.467307-07:00",
+  "first_post_restart_start": "2026-10-04T12:09:44.966718-07:00",
+  "gap_seconds_pre_to_post": 7234.499411,
+  "sum_successful_client_latencies_seconds": 5135.505,
+  "shape": [
+    {
+      "experiment_key": "e2a_gemma3_4b_text_control_runpod_cuda",
+      "n": 12,
+      "completed": 12
+    },
+    {
+      "experiment_key": "e2b_gemma3_4b_multimodal_runpod_cuda",
+      "n": 12,
+      "completed": 12
+    }
+  ],
+  "duplicate_case_rows": [],
+  "score_rows_count": 24,
+  "score_distinct_eval_case_ids": 24,
+  "score_duplicate_case_condition": [],
+  "blind_counts": {
+    "input": 24,
+    "mapping": 24,
+    "output": 24,
+    "input_unique_ids": 24,
+    "mapping_unique_ids": 24,
+    "output_unique_ids": 24
+  },
+  "scoring_meta": {
+    "scored_at_utc": "2026-10-04T20:07:48.004749+00:00",
+    "scorer_model": "google/gemma-3-4b-it",
+    "scorer_type": "llm_rubric",
+    "scorer_prompt_version": "e2-rubric-v1-prompt-20261004b",
+    "condition_labels_hidden": true,
+    "rubric_version": "e2-rubric-v1",
+    "records": 24
+  },
+  "order": [
+    {
+      "execution_order": 1,
+      "case_id": "A_N1",
+      "condition": "text",
+      "status": "completed",
+      "started_at": "2026-10-04T09:32:28.522009-07:00",
+      "completed_at": "2026-10-04T09:35:46.357630-07:00",
+      "latency_seconds": 197.78,
+      "attempts": [
+        {
+          "at": "pre-retry",
+          "error": "404 Client Error: Not Found for url: http://localhost:8000/api/documents",
+          "status": "failed"
+        }
+      ],
+      "has_404_attempt": true,
+      "has_resume_retry_marker": false,
+      "has_pre_retry_marker": true,
+      "provider": "gemma_remote",
+      "model_id": "google/gemma-3-4b-it",
+      "max_new_tokens": 750,
+      "device": "cuda",
+      "hardware_backend": "runpod_cuda",
+      "execution_environment": "runpod",
+      "pages": [
+        3,
+        4,
+        5
+      ],
+      "image_count": 0,
+      "request_payload_bytes": null,
+      "image_preprocessing_seconds": null,
+      "server_generation_seconds": null
+    },
+    {
+      "execution_order": 2,
+      "case_id": "A_N1",
+      "condition": "text_image",
+      "status": "completed",
+      "started_at": "2026-10-04T09:35:46.378793-07:00",
+      "completed_at": "2026-10-04T09:40:08.027642-07:00",
+      "latency_seconds": 261.328,
+      "attempts": [
+        {
+          "at": "pre-retry",
+          "error": "404 Client Error: Not Found for url: http://localhost:8000/api/documents",
+          "status": "failed"
+        }
+      ],
+      "has_404_attempt": true,
+      "has_resume_retry_marker": false,
+      "has_pre_retry_marker": true,
+      "provider": "gemma_remote",
+      "model_id": "google/gemma-3-4b-it",
+      "max_new_tokens": 750,
+      "device": "cuda",
+      "hardware_backend": "runpod_cuda",
+      "execution_environment": "runpod",
+      "pages": [
+        3,
+        4,
+        5
+      ],
+      "image_count": 3,
+      "request_payload_bytes": null,
+      "image_preprocessing_seconds": null,
+      "server_generation_seconds": null
+    },
+    {
+      "execution_order": 3,
+      "case_id": "A_N2",
+      "condition": "text_image",
+      "status": "completed",
+      "started_at": "2026-10-04T09:40:08.043727-07:00",
+      "completed_at": "2026-10-04T09:43:08.619896-07:00",
+      "latency_seconds": 180.454,
+      "attempts": [
+        {
+          "at": "pre-retry",
+          "error": "404 Client Error: Not Found for url: http://localhost:8000/api/documents",
+          "status": "failed"
+        }
+      ],
+      "has_404_attempt": true,
+      "has_resume_retry_marker": false,
+      "has_pre_retry_marker": true,
+      "provider": "gemma_remote",
+      "model_id": "google/gemma-3-4b-it",
+      "max_new_tokens": 750,
+      "device": "cuda",
+      "hardware_backend": "runpod_cuda",
+      "execution_environment": "runpod",
+      "pages": [
+        10
+      ],
+      "image_count": 1,
+      "request_payload_bytes": null,
+      "image_preprocessing_seconds": null,
+      "server_generation_seconds": null
+    },
+    {
+      "execution_order": 4,
+      "case_id": "A_N2",
+      "condition": "text",
+      "status": "completed",
+      "started_at": "2026-10-04T09:43:08.643543-07:00",
+      "completed_at": "2026-10-04T09:45:33.186401-07:00",
+      "latency_seconds": 144.5,
+      "attempts": [
+        {
+          "at": "pre-retry",
+          "error": "404 Client Error: Not Found for url: http://localhost:8000/api/documents",
+          "status": "failed"
+        }
+      ],
+      "has_404_attempt": true,
+      "has_resume_retry_marker": false,
+      "has_pre_retry_marker": true,
+      "provider": "gemma_remote",
+      "model_id": "google/gemma-3-4b-it",
+      "max_new_tokens": 750,
+      "device": "cuda",
+      "hardware_backend": "runpod_cuda",
+      "execution_environment": "runpod",
+      "pages": [
+        10
+      ],
+      "image_count": 0,
+      "request_payload_bytes": null,
+      "image_preprocessing_seconds": null,
+      "server_generation_seconds": null
+    },
+    {
+      "execution_order": 5,
+      "case_id": "A_N3",
+      "condition": "text",
+      "status": "completed",
+      "started_at": "2026-10-04T09:45:33.203898-07:00",
+      "completed_at": "2026-10-04T09:49:57.516753-07:00",
+      "latency_seconds": 264.284,
+      "attempts": [
+        {
+          "at": "pre-retry",
+          "error": "404 Client Error: Not Found for url: http://localhost:8000/api/documents",
+          "status": "failed"
+        }
+      ],
+      "has_404_attempt": true,
+      "has_resume_retry_marker": false,
+      "has_pre_retry_marker": true,
+      "provider": "gemma_remote",
+      "model_id": "google/gemma-3-4b-it",
+      "max_new_tokens": 750,
+      "device": "cuda",
+      "hardware_backend": "runpod_cuda",
+      "execution_environment": "runpod",
+      "pages": [
+        12
+      ],
+      "image_count": 0,
+      "request_payload_bytes": null,
+      "image_preprocessing_seconds": null,
+      "server_generation_seconds": null
+    },
+    {
+      "execution_order": 6,
+      "case_id": "A_N3",
+      "condition": "text_image",
+      "status": "completed",
+      "started_at": "2026-10-04T09:49:57.543403-07:00",
+      "completed_at": "2026-10-04T09:53:46.526174-07:00",
+      "latency_seconds": 228.816,
+      "attempts": [
+        {
+          "at": "pre-retry",
+          "error": "404 Client Error: Not Found for url: http://localhost:8000/api/documents",
+          "status": "failed"
+        }
+      ],
+      "has_404_attempt": true,
+      "has_resume_retry_marker": false,
+      "has_pre_retry_marker": true,
+      "provider": "gemma_remote",
+      "model_id": "google/gemma-3-4b-it",
+      "max_new_tokens": 750,
+      "device": "cuda",
+      "hardware_backend": "runpod_cuda",
+      "execution_environment": "runpod",
+      "pages": [
+        12
+      ],
+      "image_count": 1,
+      "request_payload_bytes": null,
+      "image_preprocessing_seconds": null,
+      "server_generation_seconds": null
+    },
+    {
+      "execution_order": 7,
+      "case_id": "A_L2",
+      "condition": "text_image",
+      "status": "completed",
+      "started_at": "2026-10-04T09:53:46.541366-07:00",
+      "completed_at": "2026-10-04T09:58:53.635018-07:00",
+      "latency_seconds": 306.631,
+      "attempts": [
+        {
+          "at": "pre-retry",
+          "error": "404 Client Error: Not Found for url: http://localhost:8000/api/documents",
+          "status": "failed"
+        }
+      ],
+      "has_404_attempt": true,
+      "has_resume_retry_marker": false,
+      "has_pre_retry_marker": true,
+      "provider": "gemma_remote",
+      "model_id": "google/gemma-3-4b-it",
+      "max_new_tokens": 750,
+      "device": "cuda",
+      "hardware_backend": "runpod_cuda",
+      "execution_environment": "runpod",
+      "pages": [
+        25,
+        26,
+        27,
+        28
+      ],
+      "image_count": 4,
+      "request_payload_bytes": null,
+      "image_preprocessing_seconds": null,
+      "server_generation_seconds": null
+    },
+    {
+      "execution_order": 8,
+      "case_id": "A_L2",
+      "condition": "text",
+      "status": "completed",
+      "started_at": "2026-10-04T09:58:53.661007-07:00",
+      "completed_at": "2026-10-04T10:03:15.035530-07:00",
+      "latency_seconds": 261.299,
+      "attempts": [
+        {
+          "at": "pre-retry",
+          "error": "404 Client Error: Not Found for url: http://localhost:8000/api/documents",
+          "status": "failed"
+        }
+      ],
+      "has_404_attempt": true,
+      "has_resume_retry_marker": false,
+      "has_pre_retry_marker": true,
+      "provider": "gemma_remote",
+      "model_id": "google/gemma-3-4b-it",
+      "max_new_tokens": 750,
+      "device": "cuda",
+      "hardware_backend": "runpod_cuda",
+      "execution_environment": "runpod",
+      "pages": [
+        25,
+        26,
+        27,
+        28
+      ],
+      "image_count": 0,
+      "request_payload_bytes": null,
+      "image_preprocessing_seconds": null,
+      "server_generation_seconds": null
+    },
+    {
+      "execution_order": 9,
+      "case_id": "A_L3",
+      "condition": "text",
+      "status": "completed",
+      "started_at": "2026-10-04T10:03:15.052172-07:00",
+      "completed_at": "2026-10-04T10:09:10.467307-07:00",
+      "latency_seconds": 355.376,
+      "attempts": [
+        {
+          "at": "pre-retry",
+          "error": "404 Client Error: Not Found for url: http://localhost:8000/api/documents",
+          "status": "failed"
+        }
+      ],
+      "has_404_attempt": true,
+      "has_resume_retry_marker": false,
+      "has_pre_retry_marker": true,
+      "provider": "gemma_remote",
+      "model_id": "google/gemma-3-4b-it",
+      "max_new_tokens": 750,
+      "device": "cuda",
+      "hardware_backend": "runpod_cuda",
+      "execution_environment": "runpod",
+      "pages": [
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "image_count": 0,
+      "request_payload_bytes": null,
+      "image_preprocessing_seconds": null,
+      "server_generation_seconds": null
+    },
+    {
+      "execution_order": 10,
+      "case_id": "A_L3",
+      "condition": "text_image",
+      "status": "completed",
+      "started_at": "2026-10-04T12:09:44.966718-07:00",
+      "completed_at": "2026-10-04T12:15:45.986179-07:00",
+      "latency_seconds": 360.031,
+      "attempts": [
+        {
+          "at": "pre-retry",
+          "error": "404 Client Error: Not Found for url: http://localhost:8000/api/documents",
+          "status": "failed"
+        }
+      ],
+      "has_404_attempt": true,
+      "has_resume_retry_marker": false,
+      "has_pre_retry_marker": true,
+      "provider": "gemma_remote",
+      "model_id": "google/gemma-3-4b-it",
+      "max_new_tokens": 750,
+      "device": "cuda",
+      "hardware_backend": "runpod_cuda",
+      "execution_environment": "runpod",
+      "pages": [
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "image_count": 10,
+      "request_payload_bytes": null,
+      "image_preprocessing_seconds": null,
+      "server_generation_seconds": null
+    },
+    {
+      "execution_order": 11,
+      "case_id": "A_H1",
+      "condition": "text_image",
+      "status": "completed",
+      "started_at": "2026-10-04T12:15:46.032600-07:00",
+      "completed_at": "2026-10-04T12:17:04.498260-07:00",
+      "latency_seconds": 78.153,
+      "attempts": [
+        {
+          "at": "resume-retry",
+          "error": "404 Client Error: Not Found for url: http://localhost:8000/api/documents",
+          "status": "failed"
+        }
+      ],
+      "has_404_attempt": true,
+      "has_resume_retry_marker": true,
+      "has_pre_retry_marker": false,
+      "provider": "gemma_remote",
+      "model_id": "google/gemma-3-4b-it",
+      "max_new_tokens": 750,
+      "device": "cuda",
+      "hardware_backend": "runpod_cuda",
+      "execution_environment": "runpod",
+      "pages": [
+        3,
+        4
+      ],
+      "image_count": 2,
+      "request_payload_bytes": null,
+      "image_preprocessing_seconds": null,
+      "server_generation_seconds": null
+    },
+    {
+      "execution_order": 12,
+      "case_id": "A_H1",
+      "condition": "text",
+      "status": "completed",
+      "started_at": "2026-10-04T12:17:04.510824-07:00",
+      "completed_at": "2026-10-04T12:17:39.928560-07:00",
+      "latency_seconds": 35.382,
+      "attempts": [
+        {
+          "at": "resume-retry",
+          "error": "404 Client Error: Not Found for url: http://localhost:8000/api/documents",
+          "status": "failed"
+        }
+      ],
+      "has_404_attempt": true,
+      "has_resume_retry_marker": true,
+      "has_pre_retry_marker": false,
+      "provider": "gemma_remote",
+      "model_id": "google/gemma-3-4b-it",
+      "max_new_tokens": 750,
+      "device": "cuda",
+      "hardware_backend": "runpod_cuda",
+      "execution_environment": "runpod",
+      "pages": [
+        3,
+        4
+      ],
+      "image_count": 0,
+      "request_payload_bytes": null,
+      "image_preprocessing_seconds": null,
+      "server_generation_seconds": null
+    },
+    {
+      "execution_order": 13,
+      "case_id": "V1",
+      "condition": "text",
+      "status": "completed",
+      "started_at": "2026-10-04T12:17:39.942722-07:00",
+      "completed_at": "2026-10-04T12:19:47.643490-07:00",
+      "latency_seconds": 127.675,
+      "attempts": [
+        {
+          "at": "resume-retry",
+          "error": "404 Client Error: Not Found for url: http://localhost:8000/api/documents",
+          "status": "failed"
+        }
+      ],
+      "has_404_attempt": true,
+      "has_resume_retry_marker": true,
+      "has_pre_retry_marker": false,
+      "provider": "gemma_remote",
+      "model_id": "google/gemma-3-4b-it",
+      "max_new_tokens": 750,
+      "device": "cuda",
+      "hardware_backend": "runpod_cuda",
+      "execution_environment": "runpod",
+      "pages": [
+        5
+      ],
+      "image_count": 0,
+      "request_payload_bytes": null,
+      "image_preprocessing_seconds": null,
+      "server_generation_seconds": null
+    },
+    {
+      "execution_order": 14,
+      "case_id": "V1",
+      "condition": "text_image",
+      "status": "completed",
+      "started_at": "2026-10-04T12:19:47.660968-07:00",
+      "completed_at": "2026-10-04T12:24:46.716107-07:00",
+      "latency_seconds": 298.912,
+      "attempts": [
+        {
+          "at": "resume-retry",
+          "error": "404 Client Error: Not Found for url: http://localhost:8000/api/documents",
+          "status": "failed"
+        }
+      ],
+      "has_404_attempt": true,
+      "has_resume_retry_marker": true,
+      "has_pre_retry_marker": false,
+      "provider": "gemma_remote",
+      "model_id": "google/gemma-3-4b-it",
+      "max_new_tokens": 750,
+      "device": "cuda",
+      "hardware_backend": "runpod_cuda",
+      "execution_environment": "runpod",
+      "pages": [
+        5
+      ],
+      "image_count": 1,
+      "request_payload_bytes": null,
+      "image_preprocessing_seconds": null,
+      "server_generation_seconds": null
+    },
+    {
+      "execution_order": 15,
+      "case_id": "V2",
+      "condition": "text_image",
+      "status": "completed",
+      "started_at": "2026-10-04T12:24:46.726944-07:00",
+      "completed_at": "2026-10-04T12:28:37.386206-07:00",
+      "latency_seconds": 230.468,
+      "attempts": [
+        {
+          "at": "resume-retry",
+          "error": "404 Client Error: Not Found for url: http://localhost:8000/api/documents",
+          "status": "failed"
+        }
+      ],
+      "has_404_attempt": true,
+      "has_resume_retry_marker": true,
+      "has_pre_retry_marker": false,
+      "provider": "gemma_remote",
+      "model_id": "google/gemma-3-4b-it",
+      "max_new_tokens": 750,
+      "device": "cuda",
+      "hardware_backend": "runpod_cuda",
+      "execution_environment": "runpod",
+      "pages": [
+        28
+      ],
+      "image_count": 1,
+      "request_payload_bytes": null,
+      "image_preprocessing_seconds": null,
+      "server_generation_seconds": null
+    },
+    {
+      "execution_order": 16,
+      "case_id": "V2",
+      "condition": "text",
+      "status": "completed",
+      "started_at": "2026-10-04T12:28:37.397404-07:00",
+      "completed_at": "2026-10-04T12:32:08.678198-07:00",
+      "latency_seconds": 211.249,
+      "attempts": [
+        {
+          "at": "resume-retry",
+          "error": "404 Client Error: Not Found for url: http://localhost:8000/api/documents",
+          "status": "failed"
+        }
+      ],
+      "has_404_attempt": true,
+      "has_resume_retry_marker": true,
+      "has_pre_retry_marker": false,
+      "provider": "gemma_remote",
+      "model_id": "google/gemma-3-4b-it",
+      "max_new_tokens": 750,
+      "device": "cuda",
+      "hardware_backend": "runpod_cuda",
+      "execution_environment": "runpod",
+      "pages": [
+        28
+      ],
+      "image_count": 0,
+      "request_payload_bytes": null,
+      "image_preprocessing_seconds": null,
+      "server_generation_seconds": null
+    },
+    {
+      "execution_order": 17,
+      "case_id": "V3",
+      "condition": "text",
+      "status": "completed",
+      "started_at": "2026-10-04T12:32:08.697183-07:00",
+      "completed_at": "2026-10-04T12:34:18.680537-07:00",
+      "latency_seconds": 129.96,
+      "attempts": [
+        {
+          "at": "resume-retry",
+          "error": "404 Client Error: Not Found for url: http://localhost:8000/api/documents",
+          "status": "failed"
+        }
+      ],
+      "has_404_attempt": true,
+      "has_resume_retry_marker": true,
+      "has_pre_retry_marker": false,
+      "provider": "gemma_remote",
+      "model_id": "google/gemma-3-4b-it",
+      "max_new_tokens": 750,
+      "device": "cuda",
+      "hardware_backend": "runpod_cuda",
+      "execution_environment": "runpod",
+      "pages": [
+        12
+      ],
+      "image_count": 0,
+      "request_payload_bytes": null,
+      "image_preprocessing_seconds": null,
+      "server_generation_seconds": null
+    },
+    {
+      "execution_order": 18,
+      "case_id": "V3",
+      "condition": "text_image",
+      "status": "completed",
+      "started_at": "2026-10-04T12:34:18.695001-07:00",
+      "completed_at": "2026-10-04T12:36:46.861371-07:00",
+      "latency_seconds": 148.051,
+      "attempts": [
+        {
+          "at": "resume-retry",
+          "error": "404 Client Error: Not Found for url: http://localhost:8000/api/documents",
+          "status": "failed"
+        }
+      ],
+      "has_404_attempt": true,
+      "has_resume_retry_marker": true,
+      "has_pre_retry_marker": false,
+      "provider": "gemma_remote",
+      "model_id": "google/gemma-3-4b-it",
+      "max_new_tokens": 750,
+      "device": "cuda",
+      "hardware_backend": "runpod_cuda",
+      "execution_environment": "runpod",
+      "pages": [
+        12
+      ],
+      "image_count": 1,
+      "request_payload_bytes": null,
+      "image_preprocessing_seconds": null,
+      "server_generation_seconds": null
+    },
+    {
+      "execution_order": 19,
+      "case_id": "V4",
+      "condition": "text_image",
+      "status": "completed",
+      "started_at": "2026-10-04T12:36:46.871864-07:00",
+      "completed_at": "2026-10-04T12:40:24.854670-07:00",
+      "latency_seconds": 217.808,
+      "attempts": [
+        {
+          "at": "resume-retry",
+          "error": "404 Client Error: Not Found for url: http://localhost:8000/api/documents",
+          "status": "failed"
+        }
+      ],
+      "has_404_attempt": true,
+      "has_resume_retry_marker": true,
+      "has_pre_retry_marker": false,
+      "provider": "gemma_remote",
+      "model_id": "google/gemma-3-4b-it",
+      "max_new_tokens": 750,
+      "device": "cuda",
+      "hardware_backend": "runpod_cuda",
+      "execution_environment": "runpod",
+      "pages": [
+        4
+      ],
+      "image_count": 1,
+      "request_payload_bytes": null,
+      "image_preprocessing_seconds": null,
+      "server_generation_seconds": null
+    },
+    {
+      "execution_order": 20,
+      "case_id": "V4",
+      "condition": "text",
+      "status": "completed",
+      "started_at": "2026-10-04T12:40:24.874014-07:00",
+      "completed_at": "2026-10-04T12:43:39.740868-07:00",
+      "latency_seconds": 194.826,
+      "attempts": [
+        {
+          "at": "resume-retry",
+          "error": "404 Client Error: Not Found for url: http://localhost:8000/api/documents",
+          "status": "failed"
+        }
+      ],
+      "has_404_attempt": true,
+      "has_resume_retry_marker": true,
+      "has_pre_retry_marker": false,
+      "provider": "gemma_remote",
+      "model_id": "google/gemma-3-4b-it",
+      "max_new_tokens": 750,
+      "device": "cuda",
+      "hardware_backend": "runpod_cuda",
+      "execution_environment": "runpod",
+      "pages": [
+        4
+      ],
+      "image_count": 0,
+      "request_payload_bytes": null,
+      "image_preprocessing_seconds": null,
+      "server_generation_seconds": null
+    },
+    {
+      "execution_order": 21,
+      "case_id": "V5",
+      "condition": "text",
+      "status": "completed",
+      "started_at": "2026-10-04T12:43:39.756776-07:00",
+      "completed_at": "2026-10-04T12:46:20.340460-07:00",
+      "latency_seconds": 160.558,
+      "attempts": [
+        {
+          "at": "resume-retry",
+          "error": "404 Client Error: Not Found for url: http://localhost:8000/api/documents",
+          "status": "failed"
+        }
+      ],
+      "has_404_attempt": true,
+      "has_resume_retry_marker": true,
+      "has_pre_retry_marker": false,
+      "provider": "gemma_remote",
+      "model_id": "google/gemma-3-4b-it",
+      "max_new_tokens": 750,
+      "device": "cuda",
+      "hardware_backend": "runpod_cuda",
+      "execution_environment": "runpod",
+      "pages": [
+        20
+      ],
+      "image_count": 0,
+      "request_payload_bytes": null,
+      "image_preprocessing_seconds": null,
+      "server_generation_seconds": null
+    },
+    {
+      "execution_order": 22,
+      "case_id": "V5",
+      "condition": "text_image",
+      "status": "completed",
+      "started_at": "2026-10-04T12:46:20.352882-07:00",
+      "completed_at": "2026-10-04T12:50:03.508359-07:00",
+      "latency_seconds": 223.016,
+      "attempts": [
+        {
+          "at": "resume-retry",
+          "error": "404 Client Error: Not Found for url: http://localhost:8000/api/documents",
+          "status": "failed"
+        }
+      ],
+      "has_404_attempt": true,
+      "has_resume_retry_marker": true,
+      "has_pre_retry_marker": false,
+      "provider": "gemma_remote",
+      "model_id": "google/gemma-3-4b-it",
+      "max_new_tokens": 750,
+      "device": "cuda",
+      "hardware_backend": "runpod_cuda",
+      "execution_environment": "runpod",
+      "pages": [
+        20
+      ],
+      "image_count": 1,
+      "request_payload_bytes": null,
+      "image_preprocessing_seconds": null,
+      "server_generation_seconds": null
+    },
+    {
+      "execution_order": 23,
+      "case_id": "V6",
+      "condition": "text_image",
+      "status": "completed",
+      "started_at": "2026-10-04T12:50:03.523330-07:00",
+      "completed_at": "2026-10-04T12:56:01.218990-07:00",
+      "latency_seconds": 357.497,
+      "attempts": [
+        {
+          "at": "resume-retry",
+          "error": "404 Client Error: Not Found for url: http://localhost:8000/api/documents",
+          "status": "failed"
+        }
+      ],
+      "has_404_attempt": true,
+      "has_resume_retry_marker": true,
+      "has_pre_retry_marker": false,
+      "provider": "gemma_remote",
+      "model_id": "google/gemma-3-4b-it",
+      "max_new_tokens": 750,
+      "device": "cuda",
+      "hardware_backend": "runpod_cuda",
+      "execution_environment": "runpod",
+      "pages": [
+        25,
+        26
+      ],
+      "image_count": 2,
+      "request_payload_bytes": null,
+      "image_preprocessing_seconds": null,
+      "server_generation_seconds": null
+    },
+    {
+      "execution_order": 24,
+      "case_id": "V6",
+      "condition": "text",
+      "status": "completed",
+      "started_at": "2026-10-04T12:56:01.242919-07:00",
+      "completed_at": "2026-10-04T12:58:42.735117-07:00",
+      "latency_seconds": 161.451,
+      "attempts": [
+        {
+          "at": "resume-retry",
+          "error": "404 Client Error: Not Found for url: http://localhost:8000/api/documents",
+          "status": "failed"
+        }
+      ],
+      "has_404_attempt": true,
+      "has_resume_retry_marker": true,
+      "has_pre_retry_marker": false,
+      "provider": "gemma_remote",
+      "model_id": "google/gemma-3-4b-it",
+      "max_new_tokens": 750,
+      "device": "cuda",
+      "hardware_backend": "runpod_cuda",
+      "execution_environment": "runpod",
+      "pages": [
+        25,
+        26
+      ],
+      "image_count": 0,
+      "request_payload_bytes": null,
+      "image_preprocessing_seconds": null,
+      "server_generation_seconds": null
+    }
+  ]
+}

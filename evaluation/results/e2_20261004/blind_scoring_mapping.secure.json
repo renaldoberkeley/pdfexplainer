@@ -1,0 +1,170 @@
+[
+  {
+    "anonymized_response_id": "e2v1-r001",
+    "experiment_key": "e2a_gemma3_4b_text_control_runpod_cuda",
+    "case_id": "A_N1",
+    "condition": "text",
+    "execution_order": 1
+  },
+  {
+    "anonymized_response_id": "e2v1-r002",
+    "experiment_key": "e2b_gemma3_4b_multimodal_runpod_cuda",
+    "case_id": "A_N1",
+    "condition": "text_image",
+    "execution_order": 2
+  },
+  {
+    "anonymized_response_id": "e2v1-r003",
+    "experiment_key": "e2b_gemma3_4b_multimodal_runpod_cuda",
+    "case_id": "A_N2",
+    "condition": "text_image",
+    "execution_order": 3
+  },
+  {
+    "anonymized_response_id": "e2v1-r004",
+    "experiment_key": "e2a_gemma3_4b_text_control_runpod_cuda",
+    "case_id": "A_N2",
+    "condition": "text",
+    "execution_order": 4
+  },
+  {
+    "anonymized_response_id": "e2v1-r005",
+    "experiment_key": "e2a_gemma3_4b_text_control_runpod_cuda",
+    "case_id": "A_N3",
+    "condition": "text",
+    "execution_order": 5
+  },
+  {
+    "anonymized_response_id": "e2v1-r006",
+    "experiment_key": "e2b_gemma3_4b_multimodal_runpod_cuda",
+    "case_id": "A_N3",
+    "condition": "text_image",
+    "execution_order": 6
+  },
+  {
+    "anonymized_response_id": "e2v1-r007",
+    "experiment_key": "e2b_gemma3_4b_multimodal_runpod_cuda",
+    "case_id": "A_L2",
+    "condition": "text_image",
+    "execution_order": 7
+  },
+  {
+    "anonymized_response_id": "e2v1-r008",
+    "experiment_key": "e2a_gemma3_4b_text_control_runpod_cuda",
+    "case_id": "A_L2",
+    "condition": "text",
+    "execution_order": 8
+  },
+  {
+    "anonymized_response_id": "e2v1-r009",
+    "experiment_key": "e2a_gemma3_4b_text_control_runpod_cuda",
+    "case_id": "A_L3",
+    "condition": "text",
+    "execution_order": 9
+  },
+  {
+    "anonymized_response_id": "e2v1-r010",
+    "experiment_key": "e2b_gemma3_4b_multimodal_runpod_cuda",
+    "case_id": "A_L3",
+    "condition": "text_image",
+    "execution_order": 10
+  },
+  {
+    "anonymized_response_id": "e2v1-r011",
+    "experiment_key": "e2b_gemma3_4b_multimodal_runpod_cuda",
+    "case_id": "A_H1",
+    "condition": "text_image",
+    "execution_order": 11
+  },
+  {
+    "anonymized_response_id": "e2v1-r012",
+    "experiment_key": "e2a_gemma3_4b_text_control_runpod_cuda",
+    "case_id": "A_H1",
+    "condition": "text",
+    "execution_order": 12
+  },
+  {
+    "anonymized_response_id": "e2v1-r013",
+    "experiment_key": "e2a_gemma3_4b_text_control_runpod_cuda",
+    "case_id": "V1",
+    "condition": "text",
+    "execution_order": 13
+  },
+  {
+    "anonymized_response_id": "e2v1-r014",
+    "experiment_key": "e2b_gemma3_4b_multimodal_runpod_cuda",
+    "case_id": "V1",
+    "condition": "text_image",
+    "execution_order": 14
+  },
+  {
+    "anonymized_response_id": "e2v1-r015",
+    "experiment_key": "e2b_gemma3_4b_multimodal_runpod_cuda",
+    "case_id": "V2",
+    "condition": "text_image",
+    "execution_order": 15
+  },
+  {
+    "anonymized_response_id": "e2v1-r016",
+    "experiment_key": "e2a_gemma3_4b_text_control_runpod_cuda",
+    "case_id": "V2",
+    "condition": "text",
+    "execution_order": 16
+  },
+  {
+    "anonymized_response_id": "e2v1-r017",
+    "experiment_key": "e2a_gemma3_4b_text_control_runpod_cuda",
+    "case_id": "V3",
+    "condition": "text",
+    "execution_order": 17
+  },
+  {
+    "anonymized_response_id": "e2v1-r018",
+    "experiment_key": "e2b_gemma3_4b_multimodal_runpod_cuda",
+    "case_id": "V3",
+    "condition": "text_image",
+    "execution_order": 18
+  },
+  {
+    "anonymized_response_id": "e2v1-r019",
+    "experiment_key": "e2b_gemma3_4b_multimodal_runpod_cuda",
+    "case_id": "V4",
+    "condition": "text_image",
+    "execution_order": 19
+  },
+  {
+    "anonymized_response_id": "e2v1-r020",
+    "experiment_key": "e2a_gemma3_4b_text_control_runpod_cuda",
+    "case_id": "V4",
+    "condition": "text",
+    "execution_order": 20
+  },
+  {
+    "anonymized_response_id": "e2v1-r021",
+    "experiment_key": "e2a_gemma3_4b_text_control_runpod_cuda",
+    "case_id": "V5",
+    "condition": "text",
+    "execution_order": 21
+  },
+  {
+    "anonymized_response_id": "e2v1-r022",
+    "experiment_key": "e2b_gemma3_4b_multimodal_runpod_cuda",
+    "case_id": "V5",
+    "condition": "text_image",
+    "execution_order": 22
+  },
+  {
+    "anonymized_response_id": "e2v1-r023",
+    "experiment_key": "e2b_gemma3_4b_multimodal_runpod_cuda",
+    "case_id": "V6",
+    "condition": "text_image",
+    "execution_order": 23
+  },
+  {
+    "anonymized_response_id": "e2v1-r024",
+    "experiment_key": "e2a_gemma3_4b_text_control_runpod_cuda",
+    "case_id": "V6",
+    "condition": "text",
+    "execution_order": 24
+  }
+]

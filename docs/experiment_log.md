@@ -13,7 +13,7 @@ For other project views:
 
 ## Current Progress Snapshot (single source of truth)
 
-Last updated: 2026-10-04
+Last updated: 2026-10-04 (post-E2 execution)
 
 ### Completed milestones
 
@@ -23,27 +23,29 @@ Last updated: 2026-10-04
   - [e2_multimodal_v1.yaml](../evaluation/specs/e2_multimodal_v1.yaml)
   - [e2_scoring_rubric_v1.yaml](../evaluation/specs/e2_scoring_rubric_v1.yaml)
 - E2 implementation milestone (multimodal pipeline + tests + migration) (**completed**, commit `3f5edba5a94c58919e8756d4bcdfe604399ccab9`).
+- E2.6 real multimodal GPU integration validation (**completed**, non-benchmark).
+- E2 preregistered benchmark execution + blind scoring (**completed**):
+  - `e2a_gemma3_4b_text_control_runpod_cuda`
+  - `e2b_gemma3_4b_multimodal_runpod_cuda`
+  - 24/24 condition runs completed
+  - Scoring rubric: `e2-rubric-v1`
 
 ### Current phase
 
-- **E2.6 — Real Multimodal GPU Validation**: **in progress / paused awaiting manual Pod restart confirmation**.
-- Current state:
-  - Docker image `v0.2.0` built and pushed.
-  - Existing RunPod Pod update instructions prepared.
-  - Real-GPU validation steps (synthetic positive multimodal, text-only negative control, multi-image check, telemetry verification) not executed yet.
+- **Post-E2 execution analysis and write-up**:
+  - update evaluation/manuscript docs with measured E2 results
+  - preserve prereg integrity trail
+  - prepare eventual E3 prompt-optimization phase entry point
 
 ### Not started yet
 
-- Frozen E2 benchmark execution:
-  - `e2a_gemma3_4b_text_control_runpod_cuda`
-  - `e2b_gemma3_4b_multimodal_runpod_cuda`
-- E2 benchmark scoring/analysis results for research paper.
+- E3+ phases (`E3` through `E10`) remain not started.
 
 ### Integrity constraints in force
 
-- Do not run preregistered benchmark cases during E2.6 integration validation.
-- Keep frozen E2 spec/rubric files unchanged from prereg commit (`f2ca496`).
-- Keep E2.6 integration observations separate from benchmark result rows.
+- E2 benchmark was executed against frozen prereg specs/rubric from commit `f2ca496` without methodology edits.
+- E2.6 integration observations remain historically separate from E2 benchmark rows.
+- Any new evaluation phase must use a new versioned spec/rubric (no post-hoc edits to v1 artifacts).
 
 ## Purpose
 
@@ -319,7 +321,7 @@ Quality/grounding observations from persisted outputs:
 
 ## E2 — Text + Rendered Page Image Evaluation
 
-**Status:** **PREREGISTERED / NOT RUN**  
+**Status:** **COMPLETED (SEE E2.7 ENTRY BELOW)**  
 **Spec:** [`e2_multimodal_v1.yaml`](../evaluation/specs/e2_multimodal_v1.yaml)  
 **Rubric:** [`e2_scoring_rubric_v1.yaml`](../evaluation/specs/e2_scoring_rubric_v1.yaml)
 
@@ -329,7 +331,8 @@ Methodology was frozen before execution to reduce post-hoc bias:
 - deterministic counterbalanced execution order
 - blind scoring with condition-masked response IDs
 
-No E2 outputs are recorded in this entry.
+Historical note: this section describes the prereg frozen design state before execution.  
+Measured E2 outputs are recorded in the **E2.7** entry below.
 
 ---
 
@@ -480,6 +483,118 @@ Development-only text prompt (non-benchmark) on same fixture:
   - `e2a_gemma3_4b_text_control_runpod_cuda`
   - `e2b_gemma3_4b_multimodal_runpod_cuda`
 - Frozen preregistration files remained unchanged from commit `f2ca496`.
+
+---
+
+## E2.7 — Frozen Preregistered Benchmark Execution + Blind Scoring
+
+**Status:** **COMPLETED**  
+**Date:** 2026-10-04  
+**Execution key pair:**  
+- `e2a_gemma3_4b_text_control_runpod_cuda`  
+- `e2b_gemma3_4b_multimodal_runpod_cuda`
+
+### Execution integrity
+
+- Frozen methodology source: [`e2_multimodal_v1.yaml`](../evaluation/specs/e2_multimodal_v1.yaml)
+- Frozen rubric source: [`e2_scoring_rubric_v1.yaml`](../evaluation/specs/e2_scoring_rubric_v1.yaml)
+- Counterbalanced condition order persisted per prereg strategy.
+- A_L3 multimodal condition executed with full prereg payload (pages 30–39 text + 10 page images); no image-count reduction.
+- Completed runs: **24/24**.
+- Failed runs at completion: **0**.
+
+### Infrastructure context
+
+- Service image: `renaldoberkeleydocker/pdf-explainer-gemma-service:v0.2.0`
+- Digest: `sha256:74f351ba6bddbc4cce1a223d8d7c38276329190bae62636e743947898808f3d7`
+- Pod endpoint: `https://54bwa4z3xukpqw-8080.proxy.runpod.net`
+- GPU: `NVIDIA GeForce RTX 4090`
+- Device: `cuda`
+- Pod rate used for estimate: `$0.74/hour`
+
+### Blind scoring execution
+
+- Blind export artifacts:
+  - [`blind_scoring_input.json`](../evaluation/results/e2_20261004/blind_scoring_input.json)
+  - [`blind_scoring_mapping.secure.json`](../evaluation/results/e2_20261004/blind_scoring_mapping.secure.json)
+  - [`blind_scoring_output.json`](../evaluation/results/e2_20261004/blind_scoring_output.json)
+- Scoring metadata: [`scoring_metadata.json`](../evaluation/results/e2_20261004/scoring_metadata.json)
+- Scorer type: `llm_rubric`
+- Scorer model: `google/gemma-3-4b-it` (RunPod service)
+- Prompt version: `e2-rubric-v1-prompt-20261004b`
+- Condition labels hidden during scoring: `true`
+
+### Result artifacts
+
+- Aggregate summary: [`e2_summary.json`](../evaluation/results/e2_20261004/e2_summary.json)
+- Score rows persisted in PostgreSQL `evaluation_scores`: 24
+
+### Quality summary (paired deltas: multimodal minus text)
+
+Group A criterion averages:
+- factual_correctness: `0.000`
+- document_grounding: `0.000`
+- completeness: `0.000`
+- teaching_clarity: `+0.167`
+
+Group B criterion averages:
+- factual_correctness: `-0.167`
+- document_grounding: `0.000`
+- completeness: `0.000`
+- teaching_clarity: `0.000`
+- visual_grounding: `-0.167`
+- visual_detail_accuracy: `0.000`
+
+Interpretation boundary:
+- No significance claims are made.
+- Observed paired effects are mixed and small in aggregate under this rubric pass.
+
+### Performance summary
+
+- Mean latency (text): `187.028s`
+- Mean latency (multimodal): `240.930s`
+- Mean latency delta (multimodal - text): `+53.902s`
+- Median latency (text): `178.138s`
+- Median latency (multimodal): `229.642s`
+- Median latency delta: `+51.504s`
+
+Token usage averages:
+- Input tokens: text `750.5` vs multimodal `1392.833` (delta `+642.333`)
+- Output tokens: text `531.25` vs multimodal `647.917` (delta `+116.667`)
+
+Telemetry caveat (important):
+- `request_payload_bytes`, `image_preprocessing_seconds`, and `server_generation_seconds` were null for all 24 benchmark rows (fields persisted as null).
+- This is tracked as an implementation/telemetry issue for future phase reliability analysis.
+
+### Wall-clock and estimated infrastructure cost
+
+- Earliest case start (persisted): `2026-10-04T09:32:28.522009-07:00`
+- Latest case completion (persisted): `2026-10-04T12:58:42.735117-07:00`
+- Total persisted interval between first start and last completion: `12374.213s` (`3.4373h`)
+- Estimated total RunPod billable wall-clock cost for that interval: `3.4373h × $0.74/h = $2.5436`
+
+Interpretation guardrail (post-hoc interruption audit):
+- The `12374.213s` interval should be treated as a **wall-clock/session envelope**, not pure model-execution time.
+- Sum of successful per-condition client latencies (`24` completed rows) was `5135.505s` (`~1.4265h`), indicating substantial non-request overhead and interruption/recovery idle inside the larger wall-clock envelope.
+- Without complete host/process telemetry for the restart window, exact partitioning of active execution vs interruption downtime is not claimed.
+
+### Anomalies / operational notes
+
+- Initial local-runner attempt targeted a non-backend local service path and produced immediate local `404` transport failures; rows were later rerun in-place under the same frozen conditions and completed.
+- No `HTTP 524` occurred during final benchmark completion window.
+
+### Execution interruption integrity note (post-hoc audit)
+
+- Local Mac host unexpectedly restarted during E2 execution.
+- PostgreSQL checkpointing preserved completed case rows and persisted runner state.
+- Recovery resumed from persisted state: already-completed conditions were skipped; incomplete/interrupted work was resumed/retried under the same frozen configuration.
+- Final benchmark completion remained `24/24` condition runs (`12` text + `12` text-image), with no duplicate completed rows counted in analysis.
+- Post-hoc audit conclusion: interruption affected orchestration timing/accounting, but no evidence was found that it altered final scientific result content or frozen-methodology compliance.
+
+### Frozen-spec verification after E2
+
+- [`e2_multimodal_v1.yaml`](../evaluation/specs/e2_multimodal_v1.yaml): unchanged
+- [`e2_scoring_rubric_v1.yaml`](../evaluation/specs/e2_scoring_rubric_v1.yaml): unchanged
 
 ---
 

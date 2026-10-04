@@ -1,0 +1,9 @@
+{
+  "scored_at_utc": "2026-10-04T20:07:48.004749+00:00",
+  "scorer_model": "google/gemma-3-4b-it",
+  "scorer_type": "llm_rubric",
+  "scorer_prompt_version": "e2-rubric-v1-prompt-20261004b",
+  "condition_labels_hidden": true,
+  "rubric_version": "e2-rubric-v1",
+  "records": 24
+}
