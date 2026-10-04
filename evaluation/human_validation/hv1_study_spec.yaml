@@ -1,0 +1,30 @@
+study_id: hv1_e2_human_validation
+status: preregistered_not_launched
+protocol_version: hv1-protocol-v1
+source_results_commit: f7e2d562f30b3bad9c899eecba8568079e9ac4bf
+source_experiment: E2
+responses: 24
+ratings_per_response: 3
+target_total_ratings: 72
+participant_source: Prolific
+rubric_version: human_e2_rubric_v1
+assignment_version: hv1-assignment-v1
+randomization_seed: hv1-seed-20261004
+assignment_design:
+  target_participants_minimum: 6
+  responses_per_participant: 12
+  pairing_policy: one-condition-per-case-family-per-participant
+  balancing_rule: each case family receives 3 text and 3 text_image ratings across 6 slots
+privacy:
+  collect_pii: false
+  external_ids:
+    prolific_pid: accepted_not_required_in_local_mode
+    study_id: accepted_not_required_in_local_mode
+    session_id: accepted_not_required_in_local_mode
+  storage_policy: hash_external_ids_for_storage
+ethics_checkpoint:
+  status: unresolved_prelaunch_requirement
+  note: IRB/exemption/ethics determination must be completed before recruitment or data collection.
+copyright_checkpoint:
+  status: unresolved_prelaunch_requirement
+  note: Confirm permitted distribution pattern for source page rendering before public deployment.

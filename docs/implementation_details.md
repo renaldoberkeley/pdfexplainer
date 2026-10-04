@@ -56,6 +56,7 @@ The app currently supports end-to-end local PDF tutoring with:
 | STT | Planned | Interface/placeholder only; no API endpoint or frontend integration |
 | RAG / vector retrieval | Planned | Not present in backend/frontend |
 | Evaluation framework | Partial | SQLAlchemy models + Alembic migration + resumable runner CLI implemented, including per-case and per-experiment estimated cost tracking; scoring/rubrics and multimodal comparisons still planned |
+| HV1 human-validation instrument | Implemented (local, not launched) | Isolated evaluator route (`/research/hv1`), participant-minimal API (`/api/research/hv1/*`), dedicated human-study tables, blinded response IDs (`HV1-R###`) |
 
 Status legend:
 - **Implemented** = working code path exists and is wired
@@ -76,6 +77,7 @@ pdf_explainer/
       script.py.mako
       versions/
         20261003_0001_create_evaluation_tables.py
+        20261004_0005_add_hv1_human_validation_tables.py
     alembic.ini
     app/
       main.py
@@ -83,14 +85,17 @@ pdf_explainer/
       api/
         documents.py
         explain.py
+        hv1.py
         providers.py
         speech.py
       models/
+        hv1_schemas.py
         schemas.py
       evaluation/
         database.py
         models.py
       services/
+        hv1_service.py
         pdf_service.py
         provider_factory.py
         llm/
@@ -112,8 +117,17 @@ pdf_explainer/
       test_llm_configuration.py
       test_evaluation_storage.py
       test_remote_gemma_provider.py
+      test_hv1_api.py
     requirements.txt
   evaluation/
+    human_validation/
+      hv1_study_protocol.md
+      hv1_study_spec.yaml
+      human_e2_rubric_v1.yaml
+      data/
+        hv1_response_pool_public.json
+        hv1_private_mapping.secure.json
+        hv1_calibration_fixture.json
     runner/
       cases.py
       storage.py
@@ -157,7 +171,9 @@ Key responsibilities:
 - [explain.py](../backend/app/api/explain.py): explain endpoint; gets page text and dispatches to `LLMProvider`.
 - [providers.py](../backend/app/api/providers.py): provider config + runtime status endpoints.
 - [speech.py](../backend/app/api/speech.py): speech endpoint via `TTSProvider`.
+- [hv1.py](../backend/app/api/hv1.py): HV1 participant-safe research endpoints (session start/task/progress/rating).
 - [pdf_service.py](../backend/app/services/pdf_service.py): upload validation/storage, document lookup, page text extraction.
+- [hv1_service.py](../backend/app/services/hv1_service.py): assignment generation, blinding, participant state, and rating persistence for HV1.
 - [base.py (LLM)](../backend/app/services/llm/base.py): provider interface.
 - [gemma.py](../backend/app/services/llm/gemma.py): local Gemma loading/inference/reuse logic (`LocalGemmaProvider`).
 - [remote_gemma.py](../backend/app/services/llm/remote_gemma.py): remote inference adapter (`RemoteGemmaProvider`) for an HTTP model service.

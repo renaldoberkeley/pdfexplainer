@@ -13,7 +13,7 @@ For other project views:
 
 ## Current Progress Snapshot (single source of truth)
 
-Last updated: 2026-10-04 (post-E2 execution)
+Last updated: 2026-10-04 (post-E2 execution; HV1 prereg/design implemented locally)
 
 ### Completed milestones
 
@@ -36,6 +36,10 @@ Last updated: 2026-10-04 (post-E2 execution)
   - update evaluation/manuscript docs with measured E2 results
   - preserve prereg integrity trail
   - prepare eventual E3 prompt-optimization phase entry point
+- **HV1 design/implementation (local-only)**:
+  - preregistered human-validation protocol/spec/rubric added
+  - local blinded evaluator app implemented
+  - not launched; no participant recruitment; no real human ratings collected
 
 ### Not started yet
 

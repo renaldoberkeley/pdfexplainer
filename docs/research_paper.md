@@ -299,6 +299,16 @@ Interpretation boundary:
 - No statistical significance claims are made.
 - Results are mixed; no blanket multimodal gain claim is warranted from this run alone.
 
+### HV1 (planned, preregistered protocol available)
+
+Independent human validation of E2 is planned and preregistered as HV1:
+
+- [hv1_study_protocol.md](../evaluation/human_validation/hv1_study_protocol.md)
+- [hv1_study_spec.yaml](../evaluation/human_validation/hv1_study_spec.yaml)
+- [human_e2_rubric_v1.yaml](../evaluation/human_validation/human_e2_rubric_v1.yaml)
+
+HV1 is currently local-instrument ready and **not launched**; no human ratings are reported in this manuscript section.
+
 ---
 
 ## 9. Deployment / Systems Findings

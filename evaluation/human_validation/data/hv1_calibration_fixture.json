@@ -1,0 +1,19 @@
+{
+  "calibration_id": "HV1-CAL-001",
+  "document_title": "Synthetic PCA Toy Example",
+  "pages": [
+    1
+  ],
+  "source_text": "Page 1: The chart shows two clear clusters. Principal Component 1 explains 80% variance and Principal Component 2 explains 15%.",
+  "question": "Explain what the chart suggests about separability and summarize the variance captured by PC1 and PC2.",
+  "answer": "The chart appears to show two visibly separated groups. PC1 captures most variation (80%), with PC2 adding a smaller amount (15%), so a 2D projection likely preserves most structure.",
+  "rubric_walkthrough": {
+    "factual_correctness": 4,
+    "document_grounding": 4,
+    "completeness": 4,
+    "teaching_clarity": 3,
+    "visual_grounding": 4,
+    "visual_detail_accuracy": 4
+  },
+  "notes": "Synthetic calibration item for rubric familiarization only. Not part of E2."
+}

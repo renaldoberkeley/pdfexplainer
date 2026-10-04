@@ -1,0 +1,72 @@
+rubric_version: human_e2_rubric_v1
+status: preregistered_not_launched
+score_range:
+  min: 0
+  max: 4
+  type: integer_only
+
+abstention_policy: >
+  Do not automatically penalize a response for refusing to answer when the supplied source pages
+  are insufficient. If the refusal is correct, grounded in the provided material, and avoids
+  unsupported invention, high scores (including 4) can be appropriate for factual correctness,
+  document grounding, and completeness.
+
+criteria:
+  - name: factual_correctness
+    applies_to: all_cases
+    anchors:
+      "0": Substantially incorrect or contradicts the source.
+      "1": Major errors dominate the response.
+      "2": Mixed accuracy with important mistakes.
+      "3": Mostly correct with minor issues.
+      "4": Fully correct relative to the supplied source.
+
+  - name: document_grounding
+    applies_to: all_cases
+    anchors:
+      "0": Ungrounded, generic, or fabricated.
+      "1": Minimal grounding to source pages.
+      "2": Partially grounded with notable unsupported claims.
+      "3": Strong grounding for most key claims.
+      "4": Explicit and consistent grounding across major claims.
+
+  - name: completeness
+    applies_to: all_cases
+    anchors:
+      "0": Fails to address the core request.
+      "1": Addresses only a small part of the task.
+      "2": Addresses the main request but misses key components.
+      "3": Addresses nearly all requested components.
+      "4": Fully addresses requested components at an appropriate level of detail.
+
+  - name: teaching_clarity
+    applies_to: all_cases
+    anchors:
+      "0": Confusing or unusable pedagogically.
+      "1": Hard to follow with weak structure.
+      "2": Understandable but uneven.
+      "3": Clear and mostly well-sequenced.
+      "4": Very clear, well-sequenced, and pedagogically strong.
+
+  - name: visual_grounding
+    applies_to: visual_cases_only
+    anchors:
+      "0": No meaningful use of visible evidence.
+      "1": Vague reference to visual content.
+      "2": Some visual evidence used, but limited specificity.
+      "3": Specific visual observations support important claims.
+      "4": Consistent and concrete visual evidence supports the explanation.
+
+  - name: visual_detail_accuracy
+    applies_to: visual_cases_only
+    anchors:
+      "0": Visual details are mostly incorrect.
+      "1": Major visual-detail errors.
+      "2": Mixed visual-detail accuracy.
+      "3": Mostly accurate visual-detail interpretation.
+      "4": Accurate interpretation of relevant visual details with no notable errors.
+
+notes_for_raters:
+  - Judge answers against the provided source pages (images and text), not outside knowledge.
+  - Do not infer model type, condition, latency, or prior automated scores.
+  - Treat correct insufficient-information refusals as potentially high-quality grounded answers.

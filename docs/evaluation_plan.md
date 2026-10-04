@@ -603,6 +603,14 @@ Still planned:
   Question: Does multimodal input improve visual/equation-heavy questions?
   - Status: completed (2026-10-04) under frozen prereg specs; see [`e2_summary.json`](../evaluation/results/e2_20261004/e2_summary.json) and scoring artifacts in [evaluation/results/e2_20261004/](../evaluation/results/e2_20261004/).
 
+- **HV1 — Human validation of E2 (preregistered, local instrument implemented)**  
+  Question: Do independent blinded human ratings reproduce or challenge the automated E2 conclusions?
+  - Status: designed and implemented locally, **not launched**.
+  - Protocol/spec/rubric:
+    - [hv1_study_protocol.md](../evaluation/human_validation/hv1_study_protocol.md)
+    - [hv1_study_spec.yaml](../evaluation/human_validation/hv1_study_spec.yaml)
+    - [human_e2_rubric_v1.yaml](../evaluation/human_validation/human_e2_rubric_v1.yaml)
+
 - **E3 — Prompt optimization**  
   Question: Which prompt structure best improves grounded pedagogy?
 
@@ -656,6 +664,7 @@ Still planned:
 - Importing previously captured E1 results into evaluation tables
 - Paired text-vs-multimodal rubric scoring over preregistered E2 case set
 - Visual challenge criterion comparison (`visual_grounding`, `visual_detail_accuracy`) across V1-V6
+- HV1 local human-rating workflow validation (synthetic/local sessions only; no recruitment or real human data)
 
 ### Evaluations requiring future functionality
 

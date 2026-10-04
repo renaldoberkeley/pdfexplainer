@@ -1,0 +1,218 @@
+[
+  {
+    "hv1_response_id": "HV1-R001",
+    "anonymized_response_id": "e2v1-r014",
+    "case_id": "V1",
+    "condition": "text_image",
+    "experiment_key": "e2b_gemma3_4b_multimodal_runpod_cuda",
+    "group": "B",
+    "family_id": "F07"
+  },
+  {
+    "hv1_response_id": "HV1-R002",
+    "anonymized_response_id": "e2v1-r019",
+    "case_id": "V4",
+    "condition": "text_image",
+    "experiment_key": "e2b_gemma3_4b_multimodal_runpod_cuda",
+    "group": "B",
+    "family_id": "F10"
+  },
+  {
+    "hv1_response_id": "HV1-R003",
+    "anonymized_response_id": "e2v1-r001",
+    "case_id": "A_N1",
+    "condition": "text",
+    "experiment_key": "e2a_gemma3_4b_text_control_runpod_cuda",
+    "group": "A",
+    "family_id": "F04"
+  },
+  {
+    "hv1_response_id": "HV1-R004",
+    "anonymized_response_id": "e2v1-r012",
+    "case_id": "A_H1",
+    "condition": "text",
+    "experiment_key": "e2a_gemma3_4b_text_control_runpod_cuda",
+    "group": "A",
+    "family_id": "F01"
+  },
+  {
+    "hv1_response_id": "HV1-R005",
+    "anonymized_response_id": "e2v1-r008",
+    "case_id": "A_L2",
+    "condition": "text",
+    "experiment_key": "e2a_gemma3_4b_text_control_runpod_cuda",
+    "group": "A",
+    "family_id": "F02"
+  },
+  {
+    "hv1_response_id": "HV1-R006",
+    "anonymized_response_id": "e2v1-r015",
+    "case_id": "V2",
+    "condition": "text_image",
+    "experiment_key": "e2b_gemma3_4b_multimodal_runpod_cuda",
+    "group": "B",
+    "family_id": "F08"
+  },
+  {
+    "hv1_response_id": "HV1-R007",
+    "anonymized_response_id": "e2v1-r020",
+    "case_id": "V4",
+    "condition": "text",
+    "experiment_key": "e2a_gemma3_4b_text_control_runpod_cuda",
+    "group": "B",
+    "family_id": "F10"
+  },
+  {
+    "hv1_response_id": "HV1-R008",
+    "anonymized_response_id": "e2v1-r021",
+    "case_id": "V5",
+    "condition": "text",
+    "experiment_key": "e2a_gemma3_4b_text_control_runpod_cuda",
+    "group": "B",
+    "family_id": "F11"
+  },
+  {
+    "hv1_response_id": "HV1-R009",
+    "anonymized_response_id": "e2v1-r023",
+    "case_id": "V6",
+    "condition": "text_image",
+    "experiment_key": "e2b_gemma3_4b_multimodal_runpod_cuda",
+    "group": "B",
+    "family_id": "F12"
+  },
+  {
+    "hv1_response_id": "HV1-R010",
+    "anonymized_response_id": "e2v1-r011",
+    "case_id": "A_H1",
+    "condition": "text_image",
+    "experiment_key": "e2b_gemma3_4b_multimodal_runpod_cuda",
+    "group": "A",
+    "family_id": "F01"
+  },
+  {
+    "hv1_response_id": "HV1-R011",
+    "anonymized_response_id": "e2v1-r004",
+    "case_id": "A_N2",
+    "condition": "text",
+    "experiment_key": "e2a_gemma3_4b_text_control_runpod_cuda",
+    "group": "A",
+    "family_id": "F05"
+  },
+  {
+    "hv1_response_id": "HV1-R012",
+    "anonymized_response_id": "e2v1-r024",
+    "case_id": "V6",
+    "condition": "text",
+    "experiment_key": "e2a_gemma3_4b_text_control_runpod_cuda",
+    "group": "B",
+    "family_id": "F12"
+  },
+  {
+    "hv1_response_id": "HV1-R013",
+    "anonymized_response_id": "e2v1-r022",
+    "case_id": "V5",
+    "condition": "text_image",
+    "experiment_key": "e2b_gemma3_4b_multimodal_runpod_cuda",
+    "group": "B",
+    "family_id": "F11"
+  },
+  {
+    "hv1_response_id": "HV1-R014",
+    "anonymized_response_id": "e2v1-r018",
+    "case_id": "V3",
+    "condition": "text_image",
+    "experiment_key": "e2b_gemma3_4b_multimodal_runpod_cuda",
+    "group": "B",
+    "family_id": "F09"
+  },
+  {
+    "hv1_response_id": "HV1-R015",
+    "anonymized_response_id": "e2v1-r003",
+    "case_id": "A_N2",
+    "condition": "text_image",
+    "experiment_key": "e2b_gemma3_4b_multimodal_runpod_cuda",
+    "group": "A",
+    "family_id": "F05"
+  },
+  {
+    "hv1_response_id": "HV1-R016",
+    "anonymized_response_id": "e2v1-r016",
+    "case_id": "V2",
+    "condition": "text",
+    "experiment_key": "e2a_gemma3_4b_text_control_runpod_cuda",
+    "group": "B",
+    "family_id": "F08"
+  },
+  {
+    "hv1_response_id": "HV1-R017",
+    "anonymized_response_id": "e2v1-r005",
+    "case_id": "A_N3",
+    "condition": "text",
+    "experiment_key": "e2a_gemma3_4b_text_control_runpod_cuda",
+    "group": "A",
+    "family_id": "F06"
+  },
+  {
+    "hv1_response_id": "HV1-R018",
+    "anonymized_response_id": "e2v1-r007",
+    "case_id": "A_L2",
+    "condition": "text_image",
+    "experiment_key": "e2b_gemma3_4b_multimodal_runpod_cuda",
+    "group": "A",
+    "family_id": "F02"
+  },
+  {
+    "hv1_response_id": "HV1-R019",
+    "anonymized_response_id": "e2v1-r017",
+    "case_id": "V3",
+    "condition": "text",
+    "experiment_key": "e2a_gemma3_4b_text_control_runpod_cuda",
+    "group": "B",
+    "family_id": "F09"
+  },
+  {
+    "hv1_response_id": "HV1-R020",
+    "anonymized_response_id": "e2v1-r009",
+    "case_id": "A_L3",
+    "condition": "text",
+    "experiment_key": "e2a_gemma3_4b_text_control_runpod_cuda",
+    "group": "A",
+    "family_id": "F03"
+  },
+  {
+    "hv1_response_id": "HV1-R021",
+    "anonymized_response_id": "e2v1-r013",
+    "case_id": "V1",
+    "condition": "text",
+    "experiment_key": "e2a_gemma3_4b_text_control_runpod_cuda",
+    "group": "B",
+    "family_id": "F07"
+  },
+  {
+    "hv1_response_id": "HV1-R022",
+    "anonymized_response_id": "e2v1-r010",
+    "case_id": "A_L3",
+    "condition": "text_image",
+    "experiment_key": "e2b_gemma3_4b_multimodal_runpod_cuda",
+    "group": "A",
+    "family_id": "F03"
+  },
+  {
+    "hv1_response_id": "HV1-R023",
+    "anonymized_response_id": "e2v1-r002",
+    "case_id": "A_N1",
+    "condition": "text_image",
+    "experiment_key": "e2b_gemma3_4b_multimodal_runpod_cuda",
+    "group": "A",
+    "family_id": "F04"
+  },
+  {
+    "hv1_response_id": "HV1-R024",
+    "anonymized_response_id": "e2v1-r006",
+    "case_id": "A_N3",
+    "condition": "text_image",
+    "experiment_key": "e2b_gemma3_4b_multimodal_runpod_cuda",
+    "group": "A",
+    "family_id": "F06"
+  }
+]
