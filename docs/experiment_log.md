@@ -1,5 +1,50 @@
 # AI PDF Tutor — Experiment Log
 
+## Documentation map (NotebookLM quick orientation)
+
+Use this file for **what was actually executed and observed chronologically**.  
+For other project views:
+
+- [evaluation_plan.md](./evaluation_plan.md): preregistered/planned methodology and scoring.
+- [implementation_details.md](./implementation_details.md): code implementation supporting experiments.
+- [runpod_setup.md](./runpod_setup.md): operational RunPod deployment/testing workflow.
+- [research_paper.md](./research_paper.md): manuscript framing of completed vs pending results.
+- [pdf_explainer_design_doc.md](./pdf_explainer_design_doc.md): original product/research intent.
+
+## Current Progress Snapshot (single source of truth)
+
+Last updated: 2026-10-04
+
+### Completed milestones
+
+- E1a — Gemma 3 4B text baseline on Apple M1/MPS (**completed**).
+- E1b — Gemma 3 4B text baseline on RunPod RTX 4090/CUDA (**completed**).
+- E2 preregistration freeze (**completed**):
+  - [e2_multimodal_v1.yaml](../evaluation/specs/e2_multimodal_v1.yaml)
+  - [e2_scoring_rubric_v1.yaml](../evaluation/specs/e2_scoring_rubric_v1.yaml)
+- E2 implementation milestone (multimodal pipeline + tests + migration) (**completed**, commit `3f5edba5a94c58919e8756d4bcdfe604399ccab9`).
+
+### Current phase
+
+- **E2.6 — Real Multimodal GPU Validation**: **in progress / paused awaiting manual Pod restart confirmation**.
+- Current state:
+  - Docker image `v0.2.0` built and pushed.
+  - Existing RunPod Pod update instructions prepared.
+  - Real-GPU validation steps (synthetic positive multimodal, text-only negative control, multi-image check, telemetry verification) not executed yet.
+
+### Not started yet
+
+- Frozen E2 benchmark execution:
+  - `e2a_gemma3_4b_text_control_runpod_cuda`
+  - `e2b_gemma3_4b_multimodal_runpod_cuda`
+- E2 benchmark scoring/analysis results for research paper.
+
+### Integrity constraints in force
+
+- Do not run preregistered benchmark cases during E2.6 integration validation.
+- Keep frozen E2 spec/rubric files unchanged from prereg commit (`f2ca496`).
+- Keep E2.6 integration observations separate from benchmark result rows.
+
 ## Purpose
 
 This document is the chronological engineering/ML experiment journal for this project.  

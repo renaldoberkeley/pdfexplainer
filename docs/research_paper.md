@@ -12,6 +12,36 @@ Planned:
 
 ---
 
+## Documentation map (NotebookLM quick orientation)
+
+Use this file for **manuscript-style synthesis** (claims, evidence scope, pending results).  
+For source-of-truth details:
+
+- [experiment_log.md](./experiment_log.md): chronological measured observations and failures.
+- [evaluation_plan.md](./evaluation_plan.md): evaluation design/rubrics and preregistered methodology.
+- [implementation_details.md](./implementation_details.md): exact implemented system behavior.
+- [runpod_setup.md](./runpod_setup.md): deployment/testing procedure for remote GPU serving.
+- [pdf_explainer_design_doc.md](./pdf_explainer_design_doc.md): intended architecture and goals.
+
+# Note on evidence boundaries
+
+Do not treat planned sections as completed results; use completed/verified entries from [experiment_log.md](./experiment_log.md) as the factual basis.
+
+---
+
+## Terms and acronyms used in this draft
+
+- **E1 / E1a / E1b**: completed text-only baseline experiments (`E1a` local Apple M1/MPS, `E1b` RunPod RTX 4090/CUDA).
+- **E2**: preregistered multimodal evaluation phase (paired text vs text+image conditions).
+- **E2.6**: multimodal integration validation step on real GPU; not the frozen E2 benchmark.
+- **MPS**: Apple Metal Performance Shaders backend for local PyTorch inference.
+- **CUDA**: NVIDIA GPU compute backend used on RunPod.
+- **Preregistration**: frozen methodology/rubric committed before executing E2 to reduce post-hoc evaluation bias.
+- **Grounding**: answer quality judged against selected document pages (and rendered images for multimodal conditions).
+- **Synthetic fixture**: controlled development-only artifact used for implementation validation (not benchmark evidence).
+
+---
+
 # Provisional Title
 
 **Evaluating Open-Weight Multimodal Models for Grounded Explanation of Technical Documents** *(provisional)*

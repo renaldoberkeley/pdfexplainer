@@ -4,6 +4,17 @@ This document defines **how to evaluate whether the AI PDF Tutor is improving** 
 
 It focuses on evaluation methodology, not implementation details.
 
+## Documentation map (NotebookLM quick orientation)
+
+Use this file for **how evaluations are defined before execution**.  
+For other project views:
+
+- [experiment_log.md](./experiment_log.md): what was actually run and measured.
+- [implementation_details.md](./implementation_details.md): implementation and telemetry surfaces supporting evaluation.
+- [research_paper.md](./research_paper.md): manuscript-level interpretation of completed evidence.
+- [runpod_setup.md](./runpod_setup.md): remote deployment/testing procedure used for GPU experiments.
+- [pdf_explainer_design_doc.md](./pdf_explainer_design_doc.md): product/system intent behind the evaluation questions.
+
 ---
 
 ## 1. Evaluation Goals

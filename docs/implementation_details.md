@@ -3,6 +3,33 @@
 This document describes the **current implementation** in this repository.
 It complements (and does not replace) [pdf_explainer_design_doc.md](./pdf_explainer_design_doc.md).
 
+## Documentation map (NotebookLM quick orientation)
+
+Use this file for **how the code works today**.  
+For other project views:
+
+- [pdf_explainer_design_doc.md](./pdf_explainer_design_doc.md): intended architecture/product rationale.
+- [runpod_setup.md](./runpod_setup.md): operational Docker/RunPod deployment and validation workflow.
+- [evaluation_plan.md](./evaluation_plan.md): experiment design and scoring methodology.
+- [experiment_log.md](./experiment_log.md): chronological record of measured runs and outcomes.
+- [research_paper.md](./research_paper.md): research narrative built from completed evidence.
+
+---
+
+## Common terms and acronyms
+
+- **E1 / E1a / E1b**: Phase-1 text-only baseline experiments (`a` = local MPS, `b` = RunPod CUDA).
+- **E2**: preregistered multimodal evaluation phase (text vs text+image).
+- **E2.6**: real-GPU multimodal integration validation step (not the E2 benchmark).
+- **MPS**: Apple Metal Performance Shaders backend used by PyTorch on Apple Silicon.
+- **CUDA**: NVIDIA GPU compute backend used by PyTorch on RunPod GPU pods.
+- **LLMProvider**: backend abstraction that standardizes explanation generation across model backends.
+- **RemoteGemmaProvider**: backend adapter that sends generation requests to a remote RunPod service.
+- **RunPod service**: containerized inference API in [runpod_service/](/Users/renaldowilliams/Documents/Development/Personal/pdf_explainer/runpod_service) exposing `/health`, `/model/status`, and `/generate`.
+- **Preregistration**: frozen experiment/rubric specification committed before running the benchmark to reduce post-hoc bias.
+- **Grounding**: answering based on selected document pages (and, in multimodal mode, rendered page images) rather than unconstrained prior knowledge.
+- **Synthetic fixtures**: controlled development-only test PDFs/images used for integration validation and negative controls.
+
 ---
 
 ## 1. Current Implementation Status
@@ -553,6 +580,22 @@ GEMMA_REMOTE_API_KEY=change-me \
 uvicorn app.main:app --reload --port 8000
 ```
 
+### RunPod deployment/testing workflow (summary)
+
+This repository separates local application logic from remote model serving:
+
+- Local Mac:
+  - FastAPI app (`backend/`) for upload/explain orchestration
+  - evaluation runner (`evaluation/runner/`)
+- RunPod Pod:
+  - `runpod_service/` container running Gemma inference on CUDA
+
+End-to-end remote path during testing:
+
+`Frontend -> backend /api/explain -> RemoteGemmaProvider -> RunPod /generate -> Gemma -> response -> backend -> frontend`
+
+For complete operational steps (build/push image, Pod config, env vars, health checks, and smoke testing), see [runpod_setup.md](./runpod_setup.md).
+
 ### Evaluation runner workflow
 
 ```bash
@@ -625,6 +668,17 @@ Current test files:
   - remote provider success/error handling
   - required auth/url/model validation
   - provider-factory no-fallback behavior for remote mode
+- [test_multimodal_pipeline.py](../backend/tests/test_multimodal_pipeline.py)
+  - text vs text+image `/api/explain` request handling
+  - page image rendering pipeline behavior
+  - multimodal response metadata plumbing (`input_mode`, `image_count`, latency fields)
+
+RunPod service test files:
+- [test_multimodal_contract.py](../runpod_service/tests/test_multimodal_contract.py)
+  - `/generate` JSON text-mode contract
+  - `/generate` multipart multimodal contract
+  - malformed image/contract validation behavior
+  - `/model/status` authorization and response shape
 
 Common commands:
 
@@ -663,8 +717,8 @@ E1 run notes (text-only):
 
 Currently supported by code constraints:
 
-- Text-only document grounding in LLM path (no page image input to Gemma yet).
-- No visual reasoning over figures/diagrams beyond extracted text.
+- Multimodal path is implemented, but quality outcomes for preregistered E2 cases are intentionally still pending until the benchmark run.
+- Multimodal quality currently depends on rendered image clarity, selected pages, and prompt quality; no secondary vision-specific fallback path exists.
 - TTS endpoint defaults to mock audio generation; Qwen3 not implemented.
 - STT is interface/placeholder only; no transcription endpoint.
 - No RAG/vector retrieval or citation indexing.

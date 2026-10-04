@@ -1,5 +1,16 @@
 # AI PDF Tutor — Design Document
 
+## Documentation map (NotebookLM quick orientation)
+
+Use this file for **what we intend to build and why**.  
+For other project views:
+
+- [implementation_details.md](./implementation_details.md): what is implemented in code right now.
+- [runpod_setup.md](./runpod_setup.md): how remote RunPod deployment/testing is configured.
+- [evaluation_plan.md](./evaluation_plan.md): how experiments are designed and scored.
+- [experiment_log.md](./experiment_log.md): what experiments were actually run and observed.
+- [research_paper.md](./research_paper.md): manuscript-style synthesis of completed vs pending evidence.
+
 ## 1. Overview
 
 AI PDF Tutor is a web application that allows users to upload a PDF,
