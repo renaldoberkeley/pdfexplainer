@@ -362,6 +362,127 @@ Interpretation constraints:
 
 ---
 
+## E2.6 — Real Multimodal GPU Validation
+
+**Status:** **COMPLETED**  
+**Classification:** **INTEGRATION VALIDATION — NOT E2 BENCHMARK**  
+**Date:** 2026-10-04
+
+### Deployment and infrastructure context
+
+- Service image: `renaldoberkeleydocker/pdf-explainer-gemma-service:v0.2.0`
+- Published image digest: `sha256:74f351ba6bddbc4cce1a223d8d7c38276329190bae62636e743947898808f3d7`
+- RunPod Pod used for validation: `54bwa4z3xukpqw`
+- GPU: `NVIDIA GeForce RTX 4090`
+- Host CUDA version reported by RunPod pod metadata: `13.0`
+- Endpoint used for all E2.6 calls: `https://54bwa4z3xukpqw-8080.proxy.runpod.net`
+
+Migration/replacement operational observation:
+
+- Original stopped Pod (`belllhnlh84cci`) could not be resumed on its previous host.
+- RunPod migrated to replacement Pod `54bwa4z3xukpqw` (same GPU class).
+- HTTP endpoint changed with Pod replacement.
+- Local remote config therefore required endpoint revalidation/update before testing.
+
+### Phase 3 — Service/GPU verification
+
+- `GET /health` on current endpoint: `200`, `{"status":"ok"}`
+- `GET /model/status` after warm-up:
+  - `model: google/gemma-3-4b-it`
+  - `device: cuda`
+  - `loaded: true`
+  - `cuda_available: true`
+  - `gpu_name: NVIDIA GeForce RTX 4090`
+
+### Phase 4 — Synthetic multimodal positive test
+
+Fixture:
+
+- Development-only synthetic 2-page PDF generated at runtime.
+- Page 1 text intentionally avoided direct answer tokens (no `blue`, `square`, `triangle`, `blue square` in extracted text).
+- Question: **“What shape does the arrow point toward? Answer with just the target shape.”**
+- Mode: `input_mode=text_image`
+
+Observed result (real path: local backend -> `RemoteGemmaProvider` -> RunPod v0.2.0 -> Gemma/CUDA):
+
+- HTTP success via backend `/api/explain`
+- Answer: **“The arrow points toward a square.”**
+- `image_count: 1`
+- `pages_used: [1]`
+- Telemetry:
+  - `request_payload_bytes: 24891`
+  - `image_preprocessing_seconds: 0.0484`
+  - `server_generation_seconds: 0.69`
+  - `client_latency_seconds: 2.062`
+  - `input_tokens: 461`
+  - `output_tokens: 8`
+
+### Cold-start behavior on migrated pod
+
+- First synthetic multimodal request attempt on this migrated pod returned proxy timeout (`HTTP 524`) while model was not yet resident.
+- A subsequent warm request succeeded after model residency.
+- Treated as startup/proxy behavior, not as multimodal-path correctness failure.
+
+### Phase 5 — Text-only negative control
+
+Same synthetic fixture, same question, same generation config, but `input_mode=text` (no image sent).
+
+Observed result:
+
+- Answer: **“The document does not provide information about the shapes that the arrow points toward.”**
+- This supports the absence of answer leakage from extracted text for this fixture.
+- Telemetry:
+  - `image_count: 0`
+  - `request_payload_bytes: 893`
+  - `server_generation_seconds: 0.65`
+  - `client_latency_seconds: 1.478`
+  - `input_tokens: 180`
+  - `output_tokens: 18`
+
+### Phase 6 — Synthetic multi-image transport test
+
+Fixture:
+
+- Same synthetic document, pages `[1,2]` with two diagrams.
+- Mode: `input_mode=text_image`
+- Question: asked for ordered target shapes across page 1 then page 2.
+
+Observed result:
+
+- Generation succeeded via backend path.
+- `image_count: 2`
+- `pages_used: [1,2]`
+- Request payload and timing:
+  - `request_payload_bytes: 49836`
+  - `image_preprocessing_seconds: 0.08`
+  - `server_generation_seconds: 70.47`
+  - `client_latency_seconds: 71.336`
+  - `input_tokens: 765`
+  - `output_tokens: 64` (hit configured cap for this validation run)
+
+Interpretation:
+
+- Confirms multi-image transport, deterministic ordering, and page association plumbing through the live remote path.
+- Output completeness for two-page answer was constrained by token cap in this integration test (not a benchmark run).
+
+### Text-only backward compatibility check
+
+Development-only text prompt (non-benchmark) on same fixture:
+
+- Mode: `input_mode=text`
+- Response succeeded and remained coherent.
+- Confirms v0.2.0 multimodal additions did not break text-only remote inference contract.
+
+### E2 benchmark integrity confirmations
+
+- No preregistered E2 benchmark case IDs were executed (`A_*`, `V*` untouched).
+- No E2 benchmark experiment rows were created for:
+  - `e2a_gemma3_4b_text_control_runpod_cuda`
+  - `e2b_gemma3_4b_multimodal_runpod_cuda`
+- Frozen preregistration files remained unchanged from commit `f2ca496`.
+
+---
+
 ## Experiment Log Rules
 
 - Never overwrite historical observations.

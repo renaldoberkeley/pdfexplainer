@@ -228,3 +228,31 @@ Keep integration validation observations separate from benchmark experiment rows
 - A running RunPod Pod is billable continuously.
 - Stop the Pod when not actively testing/inferencing.
 - Keep versioned image tags tied to experiment phases (for example E1 image tag vs E2 image tag) to preserve reproducibility.
+
+---
+
+## 11) Restarting and migrating stopped Pods (observed behavior)
+
+Observed during E2.6 setup:
+
+- A stopped Pod did not retain its original physical RTX 4090 assignment.
+- On restart, RunPod required migration to a compatible replacement GPU host.
+- Migration produced a replacement Pod with a new Pod ID.
+- The proxied HTTP endpoint changed with the replacement Pod.
+
+Operational implication:
+
+- Do not assume `GEMMA_REMOTE_URL` remains valid across stop/start/migration cycles.
+- Revalidate endpoint and Pod identity before inference.
+
+Restart/revalidation checklist:
+
+1. Start/restart/migrate the Pod.
+2. Verify expected GPU type (RTX 4090 class).
+3. Verify expected Docker image/version tag.
+4. Obtain the current HTTP service endpoint for port `8080`.
+5. Confirm `GET /health` succeeds on that endpoint.
+6. Update local `GEMMA_REMOTE_URL` if endpoint changed.
+7. Call `GET /model/status` with API key.
+8. Verify model ID/device/CUDA fields are as expected.
+9. Only then run inference or integration tests.
