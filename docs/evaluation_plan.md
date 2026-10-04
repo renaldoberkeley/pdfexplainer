@@ -255,7 +255,24 @@ Initial intended baseline (E1a local):
 - TTS excluded from LLM answer-quality measurement
 
 Baseline V1 for E1a was established from stable real-Gemma local runs.
-E1b uses the same cases/prompts/config on remote CUDA and is not yet recorded.
+E1b (same cases/prompts/config on remote CUDA) is now recorded under experiment key `e1b_gemma3_4b_text_runpod_cuda`.
+
+### Baseline V1b observation (2026-10-04, E1b text-only Runpod CUDA)
+
+Measured run configuration:
+- Model: `google/gemma-3-4b-it`
+- Provider mode: `LLM_PROVIDER=gemma_remote`
+- Generation cap: `GEMMA_MAX_NEW_TOKENS=750`
+- Input mode: text-only extracted page text (no rendered images sent to model)
+- Runtime path: local backend `RemoteGemmaProvider` -> real Runpod pod -> CUDA
+
+Persisted aggregate outcomes (10 cases, same case set as E1a):
+- Completed cases: 10/10 (0 failed)
+- Sum of per-case latency: `321.55s` (E1a: `1428.64s`)
+- Avg per-case latency: `32.16s` (E1a: `142.86s`)
+- Overall latency speedup vs E1a: `4.44x` by both sum and average
+- Output token totals remained similar (`3886` vs E1a `3872`)
+- Token-cap hits (`output_tokens >= 750`) remained `3/10` (same as E1a)
 
 ### Baseline V1 observation (2026-10-03, E1a text-only local)
 
@@ -565,7 +582,7 @@ Still planned:
 
 - **E1b — Gemma 3 4B text baseline (RunPod CUDA)**  
   Question: How does the same text-only baseline perform on remote CUDA?
-  - Status: planned; experiment definition and storage path are implemented, but run results are not recorded yet.
+  - Status: completed (2026-10-04); persisted under `e1b_gemma3_4b_text_runpod_cuda`.
 
 - **E2 — Text vs text+image comparison**  
   Question: Does multimodal input improve visual/equation-heavy questions?

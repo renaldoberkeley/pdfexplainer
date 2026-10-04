@@ -653,6 +653,7 @@ Point-in-time development-session observations (2026-10-03, local Mac, Gemma on 
 |---|---|---|---|
 | 2026-10-03 | `google/gemma-3-4b-it` | `mps` | First explain request ~143s (includes lazy model load), subsequent explain ~12s with model already loaded |
 | 2026-10-03 (E1 baseline run) | `google/gemma-3-4b-it` | `mps` | Provider status transitioned `loaded: false -> true`; measured cold text-only inference 32.37s; warm inference samples: 9.31s, 9.90s, 193.40s, 110.23s, 253.85s, 196.34s, 234.13s, 335.21s, 53.90s (input size strongly affected latency) |
+| 2026-10-04 (E1b baseline run) | `google/gemma-3-4b-it` | `runpod_cuda` | Real remote path (`RemoteGemmaProvider` -> Runpod RTX 4090/CUDA) completed 10/10 cases; sum per-case latency 321.55s vs E1a 1428.64s (4.44x speedup), with same 3/10 token-cap hits |
 
 These are informal validation measurements, not controlled benchmarks.
 
@@ -676,7 +677,7 @@ Currently supported by code constraints:
 - Document index is in-memory per process (not persistent across restart).
 - Single-process app-level model serving; no inference queue/service isolation.
 - Evaluation runner does not yet compute rubric scores; it stores run outputs/latencies and supports import/resume/compare.
-- Remote inference path depends on external service availability/network and is not yet exercised in a full E1b run.
+- Remote inference path depends on external service availability/network; full E1b run has now been exercised with 10/10 completed cases on Runpod CUDA.
 - No authentication/authorization.
 - Local/dev-oriented deployment profile.
 
