@@ -1,0 +1,347 @@
+experiment_identity:
+  experiment_family: e2_multimodal
+  spec_version: 1
+  spec_id: e2_multimodal_v1
+  status: preregistered
+  research_question: "How much does adding rendered PDF page images improve explanation of visually structured technical material?"
+  model_id: google/gemma-3-4b-it
+  max_new_tokens: 750
+  hardware: NVIDIA GeForce RTX 4090
+  device: cuda
+  execution_environment: runpod
+  scoring_rubric_id: e2_scoring_rubric_v1
+  related_research_doc: docs/research_paper.md
+
+experimental_variables:
+  independent_variable:
+    name: input_mode
+    values:
+      - text
+      - text_image
+  controlled_variables:
+    - model_id
+    - model_revision_if_available
+    - hardware
+    - device
+    - execution_environment
+    - prompt_instruction_framing
+    - question
+    - selected_pages
+    - generation_configuration
+    - max_new_tokens
+    - document
+    - scoring_rubric_id
+
+paired_conditions:
+  text:
+    condition_key: text
+    condition_name: text_control
+    inputs:
+      include_extracted_text: true
+      include_rendered_page_images: false
+  text_image:
+    condition_key: text_image
+    condition_name: multimodal
+    inputs:
+      include_extracted_text: true
+      include_rendered_page_images: true
+
+group_a_controlled_e1_overlap:
+  description: "Controlled overlap with existing E1 tasks; question wording is frozen to canonical E1 case definitions."
+  source_definition: evaluation/runner/cases.py:E1_CASES
+  cases:
+    - case_id: A_N1
+      source_case_id: N1
+      pair_run_ids:
+        text: N1_text
+        text_image: N1_multimodal
+      group: A
+      document: notebook_lecture3.pdf
+      pages: [3, 4, 5]
+      question: "Explain why PCA is useful for the congressional voting example. Why can't we simply select two of the original roll-call columns? Explain it as if I'm learning PCA for the first time."
+      task_type: conceptual_explanation
+      visual_dependency: moderate
+      rationale_for_inclusion: "Checks whether multimodal input changes quality/grounding on a mixed conceptual + plotted-context task."
+      conditions: [text, text_image]
+    - case_id: A_N2
+      source_case_id: N2
+      pair_run_ids:
+        text: N2_text
+        text_image: N2_multimodal
+      group: A
+      document: notebook_lecture3.pdf
+      pages: [10]
+      question: "How much of the variation is captured by the first principal component, and how much is captured by the first two together? Explain what those numbers mean intuitively."
+      task_type: quantitative_grounding
+      visual_dependency: low_to_moderate
+      rationale_for_inclusion: "Preserves a quantitative grounding task for direct E1/E2 comparison."
+      conditions: [text, text_image]
+    - case_id: A_N3
+      source_case_id: N3
+      pair_run_ids:
+        text: N3_text
+        text_image: N3_multimodal
+      group: A
+      document: notebook_lecture3.pdf
+      pages: [12]
+      question: "What is model.components_ and why does taking a dot product with w1 produce a legislator's first PCA coordinate? Explain the intuition first, then the mathematics."
+      task_type: technical_mathematical_explanation
+      visual_dependency: moderate
+      rationale_for_inclusion: "Technical explanation case with math+array structure."
+      conditions: [text, text_image]
+    - case_id: A_L2
+      source_case_id: L2
+      pair_run_ids:
+        text: L2_text
+        text_image: L2_multimodal
+      group: A
+      document: lecture_03_dimensionality_reduction.pdf
+      pages: [25, 26, 27, 28]
+      question: "Explain how PCA is being formulated as an optimization problem. What exactly are we minimizing? Why is the data centered? Why do we require the rows of W to be orthonormal? Explain the intuition before the mathematics."
+      task_type: optimization_formulation
+      visual_dependency: moderate
+      rationale_for_inclusion: "Maintains optimization-focused overlap from E1."
+      conditions: [text, text_image]
+    - case_id: A_L3
+      source_case_id: L3
+      pair_run_ids:
+        text: L3_text
+        text_image: L3_multimodal
+      group: A
+      document: lecture_03_dimensionality_reduction.pdf
+      pages: [30, 31, 32, 33, 34, 35, 36, 37, 38, 39]
+      question: "Walk me through the derivation that leads to the eigenvector equation. Explain each major step intuitively before explaining the mathematics. Why does the first principal component end up being the eigenvector associated with the largest eigenvalue?"
+      task_type: derivation_walkthrough
+      visual_dependency: high
+      rationale_for_inclusion: "Direct overlap for the longest derivation case; supports controlled E1/E2 comparison."
+      conditions: [text, text_image]
+    - case_id: A_H1
+      source_case_id: H1
+      pair_run_ids:
+        text: H1_text
+        text_image: H1_multimodal
+      group: A
+      document: lecture_03_dimensionality_reduction.pdf
+      pages: [3, 4]
+      question: "Using this document, derive the full Lagrangian eigenvector equation presented later in the derivation section and give the final eigenvalue equation."
+      task_type: insufficiency_hallucination_resistance
+      visual_dependency: low
+      rationale_for_inclusion: "Negative-control style case for unsupported-information behavior."
+      conditions: [text, text_image]
+
+group_b_visual_challenge_set:
+  description: "Visual-dependence challenge set; each case is paired text vs text+image with identical question/pages."
+  cases:
+    - case_id: V1
+      pair_run_ids:
+        text: V1_text
+        text_image: V1_multimodal
+      group: B
+      document: notebook_lecture3.pdf
+      pages: [5]
+      question: "Describe the geometric structure shown in the projection and explain what it suggests about separability/variation in the data."
+      task_type: plot_geometric_interpretation
+      visual_element: "2D scatter plot of projected legislators."
+      visual_dependency: high
+      information_available_in_text: "Text indicates projection setup and plotting intent."
+      information_available_visually: "Cluster geometry, separation, overlap, outliers, and directional spread."
+      expected_text_only_limitation: "Likely generic PCA prose with weak geometric specifics."
+      conditions: [text, text_image]
+    - case_id: V2
+      pair_run_ids:
+        text: V2_text
+        text_image: V2_multimodal
+      group: B
+      document: notebook_lecture3.pdf
+      pages: [28]
+      question: "Interpret the structure of the distribution and explain what it implies about category relationships."
+      task_type: plot_distribution_interpretation
+      visual_element: "Score-distribution / class-structure scatter plot."
+      visual_dependency: high
+      information_available_in_text: "Narrative states multimodality in broad terms."
+      information_available_visually: "Mode count, spacing, overlap, and relative positioning of groups."
+      expected_text_only_limitation: "May restate prose without concrete structural evidence."
+      conditions: [text, text_image]
+    - case_id: V3
+      pair_run_ids:
+        text: V3_text
+        text_image: V3_multimodal
+      group: B
+      document: lecture_03_dimensionality_reduction.pdf
+      pages: [12]
+      question: "Use the table structure to explain what makes this dataset low-rank and how column relationships indicate redundancy."
+      task_type: table_understanding
+      visual_element: "Structured rectangle-properties table."
+      visual_dependency: moderate_to_high
+      information_available_in_text: "Many table values/headers may be extractable as linearized text."
+      information_available_visually: "Column alignment and cross-column relationships are easier to parse as a table."
+      expected_text_only_limitation: "Harder to reliably infer structure and relationships from flattened text."
+      conditions: [text, text_image]
+    - case_id: V4
+      pair_run_ids:
+        text: V4_text
+        text_image: V4_multimodal
+      group: B
+      document: lecture_03_dimensionality_reduction.pdf
+      pages: [4]
+      question: "Explain the hierarchy and relationships shown in the taxonomy, including how categories split and relate."
+      task_type: diagram_hierarchy_understanding
+      visual_element: "Machine-learning taxonomy/hierarchy diagram."
+      visual_dependency: high
+      information_available_in_text: "Category labels appear in extracted text."
+      information_available_visually: "Parent/child relationships, grouping boundaries, and diagram topology."
+      expected_text_only_limitation: "Bag-of-label summary with possible relation errors."
+      conditions: [text, text_image]
+    - case_id: V5
+      pair_run_ids:
+        text: V5_text
+        text_image: V5_multimodal
+      group: B
+      document: lecture_03_dimensionality_reduction.pdf
+      pages: [20]
+      question: "Explain the diagrammed factorization flow, including what each matrix represents and how dimensions align."
+      task_type: mathematical_diagram_equation_layout_understanding
+      visual_element: "X ≈ ZW matrix-factorization schematic with matrix dimensions and roles."
+      visual_dependency: high
+      information_available_in_text: "Equation and some dimension symbols are extractable."
+      information_available_visually: "Spatial role mapping and dimension-flow alignment across matrices."
+      expected_text_only_limitation: "Potential omission/misassignment of diagram-specific role mapping."
+      conditions: [text, text_image]
+    - case_id: V6
+      pair_run_ids:
+        text: V6_text
+        text_image: V6_multimodal
+      group: B
+      document: notebook_lecture3.pdf
+      pages: [25, 26]
+      question: "Compare reconstruction quality across settings shown and explain the tradeoff trend visible in the figure."
+      task_type: visual_comparison_image_reconstruction
+      visual_element: "Image reconstruction panels across different values of k."
+      visual_dependency: high
+      information_available_in_text: "Text describes trend direction at a high level."
+      information_available_visually: "Actual reconstruction quality differences and artifact severity across settings."
+      expected_text_only_limitation: "May describe trend without faithful visual-detail grounding."
+      conditions: [text, text_image]
+
+l3_multimodal_preregistration_review:
+  reviewed_case_id: A_L3
+  reviewed_pages: [30, 31, 32, 33, 34, 35, 36, 37, 38, 39]
+  observations_summary:
+    - "Pages 34-39 are heavily focused on equation layout and derivation flow."
+    - "Pages 30-33 establish setup and intermediate symbolic context used by later steps."
+  considered_options:
+    A: "All text + all ten page images."
+    B: "All text + selected subset of visually relevant page images."
+    C: "Keep overlap L3; introduce a separate narrower derivation case for multimodal."
+  preregistered_decision: A
+  rationale: "For the controlled overlap objective, option A is the cleanest because page selection remains identical between text and text+image conditions, making image availability the only manipulated variable. Option B introduces image-subset selection as an extra methodological variable, and option C is suitable for a future spec version rather than this overlap preregistration."
+
+run_order_strategy:
+  type: deterministic_counterbalancing
+  description: "Odd-indexed canonical cases run text->text_image; even-indexed canonical cases run text_image->text."
+  canonical_case_order:
+    - A_N1
+    - A_N2
+    - A_N3
+    - A_L2
+    - A_L3
+    - A_H1
+    - V1
+    - V2
+    - V3
+    - V4
+    - V5
+    - V6
+  per_case_first_condition:
+    A_N1: text
+    A_N2: text_image
+    A_N3: text
+    A_L2: text_image
+    A_L3: text
+    A_H1: text_image
+    V1: text
+    V2: text_image
+    V3: text
+    V4: text_image
+    V5: text
+    V6: text_image
+
+blind_scoring_design:
+  anonymized_response_id_format: "e2v1-r{zero_padded_integer}"
+  scorer_visible_fields:
+    - anonymized_response_id
+    - document
+    - pages
+    - question
+    - answer
+    - rendered_page_images_if_needed_for_scoring
+  scorer_hidden_fields:
+    - condition
+    - experiment_key
+    - case_id
+    - execution_order
+    - latency_and_token_metrics
+    - hypothesis_and_expected_limitations
+    - infrastructure_metadata
+  join_back_rule: "A secure mapping table links anonymized_response_id to experiment/case/condition after scoring is complete."
+
+metadata_separation_guardrails:
+  inference_prompt_allowed_fields:
+    - document
+    - pages
+    - extracted_text
+    - question
+    - rendered_page_images_when_condition_is_text_image
+  inference_prompt_forbidden_fields:
+    - rationale_for_inclusion
+    - visual_dependency
+    - information_available_in_text
+    - information_available_visually
+    - expected_text_only_limitation
+    - hypotheses
+    - scoring_criteria
+  safeguard_note: "Experiment-design metadata and expected limitations are preregistration-only fields and must never be serialized into model prompts."
+
+execution_time_metadata_plan:
+  image_metadata_fields:
+    - image_count
+    - page_number
+    - width
+    - height
+    - image_format
+    - rendered_dpi
+    - image_byte_size
+  performance_metadata_fields:
+    - request_payload_bytes
+    - image_preprocessing_seconds
+    - input_tokens
+    - output_tokens
+    - server_generation_seconds
+    - total_client_latency
+    - approximate_tokens_per_second
+    - hardware_backend
+    - device
+    - estimated_infrastructure_cost_usd
+
+postgres_representation_recommendation:
+  recommended_approach: A_two_experiments
+  rationale: "The current schema stores one input_mode per experiment. Two sibling experiments avoid schema changes to run E2 while keeping paired joins straightforward."
+  planned_experiment_keys:
+    - e2a_gemma3_4b_text_control_runpod_cuda
+    - e2b_gemma3_4b_multimodal_runpod_cuda
+  pairing_rule: "Same case_id across e2a/e2b denotes a pair."
+  queryability_goal: "Easy joins on case_id across e2a/e2b plus later joins to evaluation_scores."
+  alternative_not_selected:
+    option: "single_experiment_with_mixed_conditions"
+    rejection_reason: "Would conflict with current experiment-level input_mode semantics unless schema is expanded first."
+
+research_outputs_alignment:
+  planned_tables:
+    - "Paired quality scores by case and condition."
+    - "Aggregate rubric results for Group A and Group B."
+    - "Text vs multimodal latency/token/cost comparison."
+  planned_figures:
+    - "Per-case quality delta: multimodal minus text."
+    - "Quality improvement by task type."
+    - "Quality improvement versus latency increase."
+

@@ -554,6 +554,10 @@ evaluation/
 ├── documents/
 │   ├── notebook_lecture3.pdf
 │   └── lecture_03_dimensionality_reduction.pdf
+├── specs/
+│   ├── e2_multimodal_v1.yaml
+│   ├── e2_scoring_rubric_v1.yaml
+│   └── README.md
 └── runner/
     ├── cases.py
     ├── storage.py
@@ -586,6 +590,7 @@ Still planned:
 
 - **E2 — Text vs text+image comparison**  
   Question: Does multimodal input improve visual/equation-heavy questions?
+  - Status: preregistered; see [`evaluation/specs/e2_multimodal_v1.yaml`](../evaluation/specs/e2_multimodal_v1.yaml) and [`evaluation/specs/e2_scoring_rubric_v1.yaml`](../evaluation/specs/e2_scoring_rubric_v1.yaml). Not run yet.
 
 - **E3 — Prompt optimization**  
   Question: Which prompt structure best improves grounded pedagogy?

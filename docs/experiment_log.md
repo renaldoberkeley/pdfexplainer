@@ -272,6 +272,22 @@ Quality/grounding observations from persisted outputs:
 
 ---
 
+## E2 — Text + Rendered Page Image Evaluation
+
+**Status:** **PREREGISTERED / NOT RUN**  
+**Spec:** [`e2_multimodal_v1.yaml`](../evaluation/specs/e2_multimodal_v1.yaml)  
+**Rubric:** [`e2_scoring_rubric_v1.yaml`](../evaluation/specs/e2_scoring_rubric_v1.yaml)
+
+Methodology was frozen before execution to reduce post-hoc bias:
+- paired text vs text+image conditions per case
+- controlled E1-overlap group plus visual challenge group
+- deterministic counterbalanced execution order
+- blind scoring with condition-masked response IDs
+
+No E2 outputs are recorded in this entry.
+
+---
+
 ## Experiment Log Rules
 
 - Never overwrite historical observations.

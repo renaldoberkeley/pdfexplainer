@@ -1,0 +1,65 @@
+rubric_version: e2-rubric-v1
+status: preregistered
+score_range:
+  min: 0
+  max: 4
+  type: integer_only
+
+criteria:
+  - name: factual_correctness
+    applies_to: all_cases
+    definitions:
+      0: "Mostly incorrect or contradicts supplied document content."
+      1: "Major errors with little accurate content."
+      2: "Mixed accuracy; some correct content but important errors or omissions."
+      3: "Mostly correct with only minor errors."
+      4: "Fully correct relative to the supplied pages."
+
+  - name: document_grounding
+    applies_to: all_cases
+    definitions:
+      0: "Ungrounded, generic, or fabricated."
+      1: "Minimal grounding; mostly generic explanation."
+      2: "Partially grounded with some claims tied to supplied content."
+      3: "Strong grounding; most important claims correspond to supplied page content."
+      4: "Explicit and consistently grounded across all major claims."
+
+  - name: completeness
+    applies_to: all_cases
+    definitions:
+      0: "Fails to address the core request."
+      1: "Addresses only a small portion."
+      2: "Addresses the main request but misses important components."
+      3: "Addresses nearly all requested components."
+      4: "Fully addresses the requested components with relevant detail."
+
+  - name: teaching_clarity
+    applies_to: all_cases
+    definitions:
+      0: "Confusing or pedagogically unusable."
+      1: "Difficult to follow with weak structure."
+      2: "Understandable but uneven."
+      3: "Clear, structured, and mostly intuitive."
+      4: "Very clear, well-sequenced, and pedagogically strong."
+
+  - name: visual_grounding
+    applies_to: group_b_only
+    definitions:
+      0: "No meaningful use of visible evidence."
+      1: "Mentions visual content only vaguely."
+      2: "Uses some visual evidence but with limited specificity."
+      3: "Specific visual observations support important claims."
+      4: "Consistent and concrete visual evidence supports the explanation throughout."
+
+  - name: visual_detail_accuracy
+    applies_to: group_b_only
+    definitions:
+      0: "Visual details are mostly incorrect."
+      1: "Contains major visual-detail errors."
+      2: "Mixed visual-detail accuracy."
+      3: "Visual details are mostly accurate."
+      4: "Accurately interprets relevant visual details with no notable errors."
+
+versioning_policy:
+  immutability_rule: "Do not modify e2-rubric-v1 definitions after E2 output generation begins."
+  update_rule: "If scoring methodology changes, create a new versioned rubric (for example e2-rubric-v2)."
