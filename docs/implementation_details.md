@@ -12,8 +12,8 @@ The app currently supports end-to-end local PDF tutoring with:
 - Browser PDF rendering/navigation
 - Page range selection
 - `POST /api/explain` using provider abstraction (`mock`, `gemma_local`, `gemma_remote`, `gemma`)
-- Gemma local inference via Transformers/PyTorch (text-only prompt path)
-- Remote Gemma inference via an HTTP provider adapter (`gemma_remote`)
+- Gemma local inference via Transformers/PyTorch (text and text+image paths)
+- Remote Gemma inference via HTTP provider adapter (`gemma_remote`) with text JSON and text+image multipart support
 - Mock speech generation through `POST /api/speech`
 - Provider config and runtime status endpoints
 - DB-backed evaluation experiment/case storage and resume/import tooling
@@ -24,7 +24,7 @@ The app currently supports end-to-end local PDF tutoring with:
 | PDF text extraction | Implemented | PyMuPDF `page.get_text("text")` in [pdf_service.py](../backend/app/services/pdf_service.py) |
 | PDF rendering | Implemented | `react-pdf` in [PDFViewer.tsx](../frontend/components/PDFViewer.tsx) |
 | Gemma text inference | Implemented | [gemma.py](../backend/app/services/llm/gemma.py) + prompt builder in [prompt_builder.py](../backend/app/services/llm/prompt_builder.py) |
-| Gemma multimodal inference (text + image) | Planned | `LLMProvider` has `page_images` parameter, but current flow does not pass rendered page images |
+| Gemma multimodal inference (text + image) | Implemented (execution path) | Backend page rendering + provider multimodal interface + local/remote multimodal request handling |
 | TTS | Partial | Backend mock TTS + frontend audio playback implemented; Qwen3 provider is placeholder |
 | STT | Planned | Interface/placeholder only; no API endpoint or frontend integration |
 | RAG / vector retrieval | Planned | Not present in backend/frontend |
@@ -213,9 +213,9 @@ Current file lifecycle:
 - There is no expiry/cleanup worker in current code.
 
 Current limitations:
-- Metadata beyond `page_count`/filename is minimal.
-- No rendered page image extraction in backend yet.
 - `_documents` map is in-memory only; restart loses document index.
+- Rendered page images are generated on demand (not cached or persisted).
+- No expiry/cleanup worker for uploaded files.
 
 ---
 
@@ -223,11 +223,13 @@ Current limitations:
 
 Defined in [base.py](../backend/app/services/llm/base.py):
 
-- `LLMProvider.explain(question, pages, page_texts, page_images=None) -> LLMExplanation`
+- `LLMProvider.explain(question, pages: list[PageContext], input_mode) -> LLMExplanation`
 - `LLMExplanation` includes:
   - `answer: str`
   - `pages_used: list[int]`
   - `provider: str`
+  - token/cost metadata (when available)
+  - multimodal/perf metadata fields (`image_count`, `request_payload_bytes`, `image_preprocessing_seconds`, `server_generation_seconds`, `approximate_tokens_per_second`)
 
 Implementations:
 
@@ -272,28 +274,21 @@ Current local Gemma provider is in [gemma.py](../backend/app/services/llm/gemma.
   2. CUDA (`torch.cuda.is_available()`)
   3. CPU fallback
 
-### Inference path
-- Prompt built using `build_prompt(...)`.
-- Tokenization: `tokenizer(prompt, return_tensors="pt")`.
-- Tensors moved to selected device.
-- Generation wrapped in `torch.inference_mode()`.
-- Generation call uses deterministic settings:
-  - `do_sample=False`
-  - `max_new_tokens=self.max_new_tokens`
+### Inference paths
+- Text mode:
+  - Prompt built using `build_prompt(...)`.
+  - Tokenization via tokenizer and deterministic generation (`do_sample=False`) in `torch.inference_mode()`.
+  - Prompt tokens are removed from returned output by slicing generated ids after prompt length.
+- Text+image mode:
+  - Prompt preserves page-number grounding and includes image markers.
+  - Rendered page images are decoded to PIL and passed through `AutoProcessor`.
+  - Chat-template + image-aware model inputs are used when processor support is available.
+  - Generation remains wrapped in `torch.inference_mode()`.
 
-### Output trimming
-- Provider removes prompt tokens from generated sequence:
-  - Computes prompt token length from `input_ids`.
-  - Decodes only `output_ids[prompt_token_count:]`.
-- Returns generated explanation text only.
-
-### Current modality
-- **Text-only implemented.**
-- Although `LLMProvider` accepts `page_images`, current API flow does not supply images and `LocalGemmaProvider` does not use `page_images` yet.
-
-Remote text-only variant:
-- `RemoteGemmaProvider` in [remote_gemma.py](../backend/app/services/llm/remote_gemma.py) builds the same text prompt and forwards it to a remote service.
-- This path is also **text-only** today; no page images are sent.
+Remote variant:
+- `RemoteGemmaProvider` now supports:
+  - JSON contract for text-only requests.
+  - Multipart contract for text+image requests, including ordered `images_meta` and image files.
 
 ---
 
@@ -687,10 +682,10 @@ Currently supported by code constraints:
 
 PLANNED work aligned with [pdf_explainer_design_doc.md](./pdf_explainer_design_doc.md):
 
-- **Phase 1 / M3 (Planned):** Multimodal Gemma
-  - Render page images in backend
-  - Send text + image inputs to model
-  - Improve figure/equation handling
+- **Phase 1 / M3 (Implemented):** Multimodal Gemma execution path
+  - Page rendering implemented in backend via PyMuPDF
+  - Text + image provider interfaces implemented locally and remotely
+  - E2 experiment execution intentionally not run yet
 
 - **Phase 2 / M4 (Planned):** Qwen3-TTS
   - Replace mock speech synthesis with real model inference

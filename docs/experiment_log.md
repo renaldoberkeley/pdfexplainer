@@ -288,6 +288,35 @@ No E2 outputs are recorded in this entry.
 
 ---
 
+## E2 Implementation Readiness (No Benchmark Execution)
+
+**Status:** **COMPLETED (IMPLEMENTATION ONLY) / E2 NOT RUN**  
+**Date:** 2026-10-04
+
+Implemented to support preregistered E2 execution later without modifying frozen specs:
+
+- Backend multimodal request plumbing (`input_mode`, page-context/image association, render options).
+- PDF page rendering pipeline for explain calls (PyMuPDF render path, ordered mapping to pages).
+- Local provider multimodal execution path in Gemma provider.
+- Remote provider multimodal transport path (text-only JSON, text+image multipart).
+- RunPod service multimodal request contract handling.
+- Evaluation persistence extensions for E2 metadata/scoring tables (additive migration).
+- Synthetic multimodal fixtures/tests for pipeline/contract validation.
+
+Validation completed in this implementation phase:
+- Backend tests passed.
+- RunPod service tests passed.
+- Frontend lint/typecheck passed.
+- YAML specs parse passed.
+- E1 experiment records remained unchanged.
+- Frozen preregistration files remained unchanged.
+
+Interpretation constraints:
+- This entry is implementation readiness only.
+- No E2 benchmark runs, quality scores, or conclusions were produced.
+
+---
+
 ## Experiment Log Rules
 
 - Never overwrite historical observations.

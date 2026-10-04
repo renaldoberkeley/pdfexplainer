@@ -76,6 +76,7 @@ def ensure_experiment(
                     document=case.document,
                     pages=case.pages,
                     question=case.question,
+                    case_input_mode=experiment.input_mode,
                     status="pending",
                 )
             )
@@ -119,6 +120,7 @@ def _sync_cases(session: Session, experiment: EvaluationExperiment, cases: list[
                     document=case.document,
                     pages=case.pages,
                     question=case.question,
+                    case_input_mode=experiment.input_mode,
                     status="pending",
                 )
             )
@@ -183,6 +185,13 @@ def mark_case_completed(
     output_tokens: int | None,
     estimated_cost_usd: float | None,
     latency_seconds: float,
+    image_count: int | None = None,
+    image_metadata: dict[str, Any] | None = None,
+    request_payload_bytes: int | None = None,
+    image_preprocessing_seconds: float | None = None,
+    server_generation_seconds: float | None = None,
+    approximate_tokens_per_second: float | None = None,
+    performance_metadata: dict[str, Any] | None = None,
 ) -> None:
     case.status = "completed"
     case.answer = answer
@@ -190,6 +199,13 @@ def mark_case_completed(
     case.output_tokens = output_tokens
     case.estimated_cost_usd = estimated_cost_usd
     case.latency_seconds = latency_seconds
+    case.image_count = image_count
+    case.image_metadata = image_metadata
+    case.request_payload_bytes = request_payload_bytes
+    case.image_preprocessing_seconds = image_preprocessing_seconds
+    case.server_generation_seconds = server_generation_seconds
+    case.approximate_tokens_per_second = approximate_tokens_per_second
+    case.performance_metadata = performance_metadata
     case.completed_at = datetime.now(timezone.utc)
     case.error = None
     session.commit()

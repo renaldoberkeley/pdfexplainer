@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Literal
+
 from pydantic import BaseModel, Field, field_validator
 
 
@@ -21,6 +23,9 @@ class ExplainRequest(BaseModel):
     document_id: str = Field(min_length=1)
     pages: list[int] = Field(min_length=1)
     question: str = Field(min_length=1)
+    input_mode: Literal["text", "text_image"] = "text"
+    rendered_dpi: int = Field(default=200, ge=72, le=400)
+    image_format: Literal["png", "jpeg", "jpg"] = "png"
 
     @field_validator("pages")
     @classmethod
@@ -38,6 +43,12 @@ class ExplainResponse(BaseModel):
     input_tokens: int | None = None
     output_tokens: int | None = None
     estimated_cost_usd: float | None = None
+    input_mode: Literal["text", "text_image"] = "text"
+    image_count: int = 0
+    request_payload_bytes: int | None = None
+    image_preprocessing_seconds: float | None = None
+    server_generation_seconds: float | None = None
+    approximate_tokens_per_second: float | None = None
 
 
 class SpeechRequest(BaseModel):

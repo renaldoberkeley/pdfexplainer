@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
+from typing import Literal
 
 
 @dataclass(slots=True)
@@ -12,6 +13,27 @@ class LLMExplanation:
     input_tokens: int | None = None
     output_tokens: int | None = None
     estimated_cost_usd: float | None = None
+    image_count: int = 0
+    request_payload_bytes: int | None = None
+    image_preprocessing_seconds: float | None = None
+    server_generation_seconds: float | None = None
+    approximate_tokens_per_second: float | None = None
+
+
+@dataclass(slots=True)
+class PageImage:
+    data: bytes
+    image_format: str
+    width: int
+    height: int
+    rendered_dpi: int
+
+
+@dataclass(slots=True)
+class PageContext:
+    page_number: int
+    text: str
+    image: PageImage | None = None
 
 
 class LLMProvider(ABC):
@@ -20,8 +42,7 @@ class LLMProvider(ABC):
         self,
         *,
         question: str,
-        pages: list[int],
-        page_texts: dict[int, str],
-        page_images: dict[int, bytes] | None = None,
+        pages: list[PageContext],
+        input_mode: Literal["text", "text_image"] = "text",
     ) -> LLMExplanation:
         raise NotImplementedError

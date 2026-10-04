@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from app.services.llm.base import LLMExplanation, LLMProvider
+from typing import Literal
+
+from app.services.llm.base import LLMExplanation, LLMProvider, PageContext
 
 
 class MockLLMProvider(LLMProvider):
@@ -11,23 +13,28 @@ class MockLLMProvider(LLMProvider):
         self,
         *,
         question: str,
-        pages: list[int],
-        page_texts: dict[int, str],
-        page_images: dict[int, bytes] | None = None,
+        pages: list[PageContext],
+        input_mode: Literal["text", "text_image"] = "text",
     ) -> LLMExplanation:
         snippets: list[str] = []
+        image_count = 0
         for page in pages:
-            text = page_texts.get(page, "").strip()
+            text = page.text.strip()
             condensed = " ".join(text.split())
+            if page.image is not None:
+                image_count += 1
             snippets.append(
-                f"Page {page}: {condensed[:350]}" + ("…" if len(condensed) > 350 else "")
+                f"Page {page.page_number}: {condensed[:350]}"
+                + ("…" if len(condensed) > 350 else "")
             )
 
         answer = "\n\n".join(
             [
                 "### Mock Tutor Explanation",
                 f"**Question:** {question}",
-                f"**Pages:** {', '.join(str(page) for page in pages)}",
+                f"**Pages:** {', '.join(str(page.page_number) for page in pages)}",
+                f"**Input mode:** {input_mode}",
+                f"**Attached rendered page images:** {image_count}",
                 "",
                 "I am using the mock LLM provider for V1. Below is a grounded summary from the selected pages:",
                 "",
@@ -37,4 +44,9 @@ class MockLLMProvider(LLMProvider):
             ]
         )
 
-        return LLMExplanation(answer=answer, pages_used=pages, provider="mock-llm")
+        return LLMExplanation(
+            answer=answer,
+            pages_used=[page.page_number for page in pages],
+            provider="mock-llm",
+            image_count=image_count,
+        )

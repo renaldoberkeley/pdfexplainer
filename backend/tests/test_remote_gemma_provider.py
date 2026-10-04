@@ -4,6 +4,7 @@ import asyncio
 
 import pytest
 
+from app.services.llm.base import PageContext, PageImage
 from app.services.llm.remote_gemma import RemoteGemmaProvider, RemoteGemmaTransport
 from app.services.provider_factory import build_llm_provider
 from evaluation.runner.cases import EXPERIMENT_DEFS
@@ -13,10 +14,14 @@ class FakeTransport(RemoteGemmaTransport):
     def __init__(self, payload=None, error: Exception | None = None):
         self.payload = payload
         self.error = error
+        self.last_payload = None
+        self.last_files = None
 
-    async def generate(self, *, url, api_key, payload, timeout_seconds):  # type: ignore[override]
+    async def generate(self, *, url, api_key, payload, timeout_seconds, files=None):  # type: ignore[override]
         if self.error:
             raise self.error
+        self.last_payload = payload
+        self.last_files = files
         return self.payload
 
 
@@ -37,7 +42,9 @@ def test_remote_inference_success() -> None:
             }
         ),
     )
-    result = asyncio.run(provider.explain(question="q", pages=[1], page_texts={1: "text"}))
+    result = asyncio.run(
+        provider.explain(question="q", pages=[PageContext(page_number=1, text="text")])
+    )
     assert result.answer == "answer"
     assert result.input_tokens == 123
     assert result.output_tokens == 45
@@ -56,7 +63,7 @@ def test_remote_timeout_error() -> None:
         transport=FakeTransport(error=httpx.TimeoutException("timeout")),
     )
     with pytest.raises(RuntimeError, match="timed out"):
-        asyncio.run(provider.explain(question="q", pages=[1], page_texts={1: "text"}))
+        asyncio.run(provider.explain(question="q", pages=[PageContext(page_number=1, text="text")]))
 
 
 def test_remote_http_error() -> None:
@@ -69,7 +76,7 @@ def test_remote_http_error() -> None:
         transport=FakeTransport(error=httpx.HTTPError("bad gateway")),
     )
     with pytest.raises(RuntimeError, match="connection error"):
-        asyncio.run(provider.explain(question="q", pages=[1], page_texts={1: "text"}))
+        asyncio.run(provider.explain(question="q", pages=[PageContext(page_number=1, text="text")]))
 
 
 def test_remote_malformed_response() -> None:
@@ -80,7 +87,48 @@ def test_remote_malformed_response() -> None:
         transport=FakeTransport(payload={"device": "cuda"}),
     )
     with pytest.raises(RuntimeError, match="malformed"):
-        asyncio.run(provider.explain(question="q", pages=[1], page_texts={1: "text"}))
+        asyncio.run(provider.explain(question="q", pages=[PageContext(page_number=1, text="text")]))
+
+
+def test_remote_multimodal_payload_serialization() -> None:
+    transport = FakeTransport(
+        payload={
+            "text": "answer",
+            "model": "google/gemma-3-4b-it",
+            "device": "cuda",
+            "loaded": True,
+            "input_tokens": 20,
+            "output_tokens": 10,
+            "generation_seconds": 1.5,
+            "image_preprocessing_seconds": 0.02,
+        }
+    )
+    provider = RemoteGemmaProvider(
+        model_id="google/gemma-3-4b-it",
+        base_url="https://example.com",
+        api_key="secret",
+        transport=transport,
+    )
+    pages = [
+        PageContext(
+            page_number=7,
+            text="content",
+            image=PageImage(
+                data=b"fakepng",
+                image_format="png",
+                width=120,
+                height=90,
+                rendered_dpi=200,
+            ),
+        )
+    ]
+    result = asyncio.run(provider.explain(question="q", pages=pages, input_mode="text_image"))
+    assert result.image_count == 1
+    assert result.server_generation_seconds == 1.5
+    assert transport.last_payload is not None
+    assert transport.last_payload["input_mode"] == "text_image"
+    assert transport.last_files is not None
+    assert len(transport.last_files) == 1
 
 
 def test_remote_auth_required() -> None:

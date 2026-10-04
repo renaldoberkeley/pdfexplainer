@@ -1,6 +1,6 @@
 # RunPod Setup (Gemma Remote Inference)
 
-This guide prepares remote Gemma inference for experiment **E1b**.
+This guide prepares remote Gemma inference for text-only and multimodal evaluation paths.
 
 ## 1) Recommended initial GPU class
 
@@ -76,19 +76,30 @@ When not actively running E1b, stop or terminate the RunPod Pod to avoid unneces
 
 ---
 
-## Remote inference contract
+## Remote inference contract (v0.2.0-ready)
 
 ### `POST /generate`
 
-Request:
+Text-only request (backward compatible JSON):
 
 ```json
 {
   "model": "google/gemma-3-4b-it",
   "prompt": "...",
-  "max_new_tokens": 750
+  "max_new_tokens": 750,
+  "input_mode": "text"
 }
 ```
+
+Multimodal request (multipart/form-data):
+- form fields:
+  - `model`
+  - `prompt`
+  - `max_new_tokens`
+  - `input_mode=text_image`
+  - `images_meta` (JSON array preserving page association/order)
+- files:
+  - repeated `images` file parts in the same order as `images_meta`
 
 Response:
 
@@ -100,7 +111,9 @@ Response:
   "input_tokens": 1234,
   "output_tokens": 600,
   "generation_seconds": 12.4,
-  "loaded": true
+  "loaded": true,
+  "image_count": 0,
+  "image_preprocessing_seconds": null
 }
 ```
 
@@ -111,4 +124,3 @@ Returns basic liveness status.
 ### `GET /model/status`
 
 Returns model/device/load status and CUDA metadata (requires API key).
-
